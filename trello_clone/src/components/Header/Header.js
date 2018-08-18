@@ -7,6 +7,9 @@ import './Header.css';
 
 class Header extends Component {
 
+  // Add Change Background Color Functionality
+
+
   render() {
     return (
       <header className='header'>

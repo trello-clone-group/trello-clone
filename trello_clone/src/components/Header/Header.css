@@ -8,13 +8,23 @@
   display: flex;
 }
 
+.header button {
+  background: hsla(0,0%,100%,.3);
+  border-radius: 3px;
+}
+
 .header__home-btn {
-  margin: 0 10px;
+  border-radius: 3px;
+  margin: 0 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
-  background: 0;
+  background: hsla(0,0%,100%,.3);
+}
+
+.header__home-btn img {
+  margin: 0 10px;
 }
 
 .header__home-icon {
@@ -26,6 +36,7 @@
   border: none;
   background: 0;
   color: #fff;
+  margin-right: 5px;
 }
 
 .header__logo {
@@ -35,19 +46,20 @@
 }
 
 .header__create-board-btn {
-  margin: 0 10px;
+  margin: 0 5px;
+  padding: 0 10px;
   border: none;
   background: 0;
 }
 
-.header__create-board-btn > a{
+.header__create-board-btn > a {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .header__plus-icon {
-  height: 20px;
+  height: 15px;
   width: auto;
 }
 
@@ -63,4 +75,5 @@
 
 .header__current-user a {
   font-size: .8rem;
+  font-weight: 600;
 }
