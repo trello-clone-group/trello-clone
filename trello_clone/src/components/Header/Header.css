@@ -1,0 +1,66 @@
+.header {
+  background: rgb(0, 121, 191);
+  height: 32px;
+  position: relative;
+  overflow: hidden;
+  padding: 4px;
+  z-index: 10;
+  display: flex;
+}
+
+.header__home-btn {
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: 0;
+}
+
+.header__home-icon {
+  height: 20px;
+  width: auto;
+}
+
+.header__boards-btn {
+  border: none;
+  background: 0;
+  color: #fff;
+}
+
+.header__logo {
+  justify-content: center;
+  margin: auto;
+  color: #fff;
+}
+
+.header__create-board-btn {
+  margin: 0 10px;
+  border: none;
+  background: 0;
+}
+
+.header__create-board-btn > a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__plus-icon {
+  height: 20px;
+  width: auto;
+}
+
+.header__current-user {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__current-user a {
+  font-size: .8rem;
+}
