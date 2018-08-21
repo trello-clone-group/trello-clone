@@ -56,9 +56,11 @@ passport.use(
         if (user.length) {
           return done(null, profile);
         } else {
-          db.addUser([profile._json.email, profile._json.name]).then(user => {
-            return done(null, profile);
-          });
+          db.addUser([profile._json.email, profile._json.picture]).then(
+            user => {
+              return done(null, profile);
+            }
+          );
         }
       });
     }
@@ -68,9 +70,8 @@ passport.use(
 passport.serializeUser(function(profile, done) {
   console.log(profile);
   done(null, {
-    user_id: profile.id,
-    email: profile._json.email,
-    name: profile._json.name
+    username: profile._json.email,
+    profile_pic: profile._json.picture
   });
 });
 
@@ -94,14 +95,14 @@ app.get(
 // User Profile Endpoint
 app.get("/profile", (req, res, next) => {
   const db = app.get("db");
-  db.findUser(req.user.email)
+  db.findUser(req.user.username)
     .then(user => {
-      if (!req.user.email) {
+      if (!req.user.username) {
         res.redirect("/login");
       } else {
         // Set session.user_id to the user_id from the db
-        req.session.user_id = user[0].user_id;
-        console.log(req.session.user_id);
+        req.session.user_id = user[0].id;
+        //console.log(req.session.user_id);
         res.status(200).send(user[0]);
       }
     })
