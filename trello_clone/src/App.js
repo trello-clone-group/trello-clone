@@ -9,8 +9,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <Modal /> */}
-        <Home />
+        <Modal />
+        {/* <Home /> */}
       </div>
       // <div className="App">
       //   <header className="App-header">
