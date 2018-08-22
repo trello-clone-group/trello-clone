@@ -2,6 +2,10 @@
 modal-background-color: #EDEFF0;
 */
 
+.App {
+  position: relative;
+}
+
 h1 {
   font-size: 20px;
   font-weight: bold;
@@ -14,25 +18,30 @@ h2 {
   margin: 7px;
 }
 
+h1, h2 {
+  letter-spacing: 1px;
+}
+
 p {
-  font-size: 12px;
+  font-size: 16px;
   margin: 7px;
 }
 
 .modal-screen {
   height: 100vh;
   width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
+  Background-color: rgba(0, 0, 0, 0.400);
+  position: absolute;
+  top: 0px;
 }
 
 .modal {
   background-color: #EDEFF0;
   border-radius: 4px;
   width: 80%;
+  margin: auto;
   max-width: 700px;
-  min-width: 350px;
+  min-width: 450px;
   margin-top:40px;
   display: flex;
   flex-direction: row;
@@ -72,10 +81,6 @@ p {
   display: flex;
 }
 
-.description {
-  
-}
-
 .title-icon, .descr-icon {
   margin: 7px;
 }
@@ -100,14 +105,21 @@ textarea {
   margin: 7px;
 }
 
+.description{
+  display: flex;
+  align-items: center;
+}
+
 .btn {
-  height: 30px;
-  width: 100px;
   background-color: rgb(235, 92, 92);
   border-radius: 4px;
   cursor: pointer;
   box-shadow: 0px 2px 2px gray;
   border: 0px;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 2px;
+  padding: 7px;
 }
 button:hover {
   background-color: rgb(225, 28, 28);
@@ -141,4 +153,15 @@ button:hover {
 
 .two {
   transform: rotate(-45deg);
+}
+
+.text-btn {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(117, 117, 117);
+  cursor: pointer;
+}
+.text-btn:hover {
+  color: black;
 }
