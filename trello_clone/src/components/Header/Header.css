@@ -1,0 +1,79 @@
+.header {
+  background: rgb(0, 121, 191);
+  height: 32px;
+  position: relative;
+  overflow: hidden;
+  padding: 4px;
+  z-index: 10;
+  display: flex;
+}
+
+.header button {
+  background: hsla(0,0%,100%,.3);
+  border-radius: 3px;
+}
+
+.header__home-btn {
+  border-radius: 3px;
+  margin: 0 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: hsla(0,0%,100%,.3);
+}
+
+.header__home-btn img {
+  margin: 0 10px;
+}
+
+.header__home-icon {
+  height: 20px;
+  width: auto;
+}
+
+.header__boards-btn {
+  border: none;
+  background: 0;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.header__logo {
+  justify-content: center;
+  margin: auto;
+  color: #fff;
+}
+
+.header__create-board-btn {
+  margin: 0 5px;
+  padding: 0 10px;
+  border: none;
+  background: 0;
+}
+
+.header__create-board-btn > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__plus-icon {
+  height: 15px;
+  width: auto;
+}
+
+.header__current-user {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__current-user a {
+  font-size: .8rem;
+  font-weight: 600;
+}
