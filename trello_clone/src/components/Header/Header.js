@@ -6,6 +6,7 @@ import PlusIcon from "./Plus_Icon.svg";
 import "./Header.css";
 
 class Header extends Component {
+  // Add Create Board functionality
   // Add Change Background Color Functionality
 
   render() {
