@@ -56,11 +56,13 @@ passport.use(
         if (user.length) {
           return done(null, profile);
         } else {
-          db.addUser([profile._json.email, profile._json.picture]).then(
-            user => {
-              return done(null, profile);
-            }
-          );
+          db.addUser([
+            profile._json.email,
+            profile._json.given_name,
+            profile._json.family_name
+          ]).then(user => {
+            return done(null, profile);
+          });
         }
       });
     }
@@ -69,10 +71,12 @@ passport.use(
 
 passport.serializeUser(function(profile, done) {
   console.log(profile);
-  done(null, {
+  let user = {
     username: profile._json.email,
-    profile_pic: profile._json.picture
-  });
+    first_name: profile._json.given_name,
+    last_name: profile._json.family_name
+  };
+  done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
@@ -86,7 +90,7 @@ passport.deserializeUser(function(obj, done) {
 app.get(
   "/login",
   passport.authenticate("auth0", {
-    successRedirect: "http://localhost:3000/#/Dashboard",
+    successRedirect: "http://localhost:3000/#/",
     failureRedirect: "/login",
     failureFlash: true
   })

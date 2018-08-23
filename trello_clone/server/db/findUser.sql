@@ -1,1 +1,1 @@
-SELECT * FROM users WHERE users.username = ($1);
+SELECT * FROM trello_users WHERE trello_users.username = ($1);
