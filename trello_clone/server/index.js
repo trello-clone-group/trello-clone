@@ -1,5 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+
+// Controller Imports
+const boardController = require("./boardController");
+
 const massive = require("massive");
 const session = require("express-session");
 const passport = require("passport");
@@ -86,6 +90,7 @@ passport.deserializeUser(function(obj, done) {
 //////////////////////
 ///// ENDPOINTS //////
 //////////////////////
+
 // Login Endpoint
 app.get(
   "/login",
@@ -114,6 +119,20 @@ app.get("/profile", (req, res, next) => {
       res.status(500).send(err);
     });
 });
+
+/// Board Endpoints ///
+
+// Create Board Endpoint
+app.post("/api/board/new", boardController.createBoard);
+
+// Read Board Endpoint
+// app.get("/api/board/:id", boardController.readBoard);
+
+// // Update Board Endpoint
+// app.put("/api/board/:id", boardController.updateBoard);
+
+// // Delete Board Endpoint
+// app.delete("/api/board/:id", boardController.deleteBoard);
 
 app.listen(4000, () => {
   console.log("Server is listening on port 4000");
