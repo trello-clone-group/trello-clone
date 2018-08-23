@@ -25,9 +25,6 @@ class Header extends Component {
             </span>
           </a>
         </button>
-        {/* <div className='header__current-user'>
-          <a>PS</a>
-        </div> */}
       </header>
     );
   }
