@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const listController = require("./listController")
 const massive = require("massive");
 const session = require("express-session");
 const passport = require("passport");
@@ -118,3 +119,8 @@ app.get("/profile", (req, res, next) => {
 app.listen(4000, () => {
   console.log("Server is listening on port 4000");
 });
+
+//Lists Endpoint
+app.get('/api/lists', listController.readLists)
+app.post('/api/lists', listController.createList)
+app.delete('/api/lists/:id', listController.deleteList)
