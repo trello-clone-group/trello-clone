@@ -125,8 +125,11 @@ app.get("/profile", (req, res, next) => {
 // Create Board Endpoint
 app.post("/api/board/new", boardController.createBoard);
 
-// Read Board Endpoint
-// app.get("/api/board/:id", boardController.readBoard);
+// Read Board Endpoint (Get a single board)
+app.get("/api/board/:id", boardController.readBoard);
+
+// Read Boards Endpoint (Get ALL boards)
+app.get("/api/boards/:id", boardController.readBoardsByUserId);
 
 // // Update Board Endpoint
 // app.put("/api/board/:id", boardController.updateBoard);
