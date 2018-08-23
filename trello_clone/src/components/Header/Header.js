@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import HomeIcon from './Home_Icon.svg';
 import PlusIcon from './Plus_Icon.svg';
 
@@ -8,7 +9,6 @@ import './Header.css';
 class Header extends Component {
 
   // Add Change Background Color Functionality
-
 
   render() {
     return (
