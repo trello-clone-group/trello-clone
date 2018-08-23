@@ -126,16 +126,16 @@ app.get("/profile", (req, res, next) => {
 app.post("/api/board/new", boardController.createBoard);
 
 // Read Board Endpoint (Get a single board)
-app.get("/api/board/:id", boardController.readBoard);
+app.get("/api/board/:id", boardController.readBoardByBoardId);
 
-// Read Boards Endpoint (Get ALL boards)
+// Read Boards Endpoint (Get all boards for a user)
 app.get("/api/boards/:id", boardController.readBoardsByUserId);
 
-// // Update Board Endpoint
-// app.put("/api/board/:id", boardController.updateBoard);
+// Update Board Endpoint
+app.put("/api/board/:id", boardController.updateBoard);
 
-// // Delete Board Endpoint
-// app.delete("/api/board/:id", boardController.deleteBoard);
+// Delete Board Endpoint
+app.delete("/api/board/:id", boardController.deleteBoard);
 
 app.listen(4000, () => {
   console.log("Server is listening on port 4000");

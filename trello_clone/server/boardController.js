@@ -1,6 +1,6 @@
 module.exports = {
   // Create Board
-  createBoard: (req, res, next) => {
+  createBoard: (req, res) => {
     console.log("Creating a new board...");
     const db = req.app.get("db");
     const { board_name, user_id } = req.body;
@@ -13,10 +13,10 @@ module.exports = {
         res.status(500).send(err);
       });
   },
-  readBoard: (req, res, next) => {
-    console.log("Fetching board by id...");
+  readBoardByBoardId: (req, res) => {
+    console.log(`Fetching board ${req.params.id}...`);
     const db = req.app.get("db");
-    db.readBoard([req.params.id])
+    db.readBoardByBoardId([req.params.id])
       .then(board => {
         res.status(200).send(board);
       })
@@ -24,8 +24,8 @@ module.exports = {
         res.status(500).send(err);
       });
   },
-  readBoardsByUserId: (req, res, next) => {
-    console.log("Fetching user boards...");
+  readBoardsByUserId: (req, res) => {
+    console.log(`Fetching user ${req.params.id} boards...`);
     const db = req.app.get("db");
     db.readBoardsByUserId([req.params.id])
       .then(boards => {
@@ -35,10 +35,30 @@ module.exports = {
         res.status(500).send(err);
       });
   },
-  updateBoard: (req, res, next) => {
-    console.log("Updating board...");
+  updateBoard: (req, res) => {
+    console.log(`Updating board ${req.params.id}...`);
+    const db = req.app.get("db");
+    const { board_name } = req.body;
+    //console.log(board_name);
+    db.updateBoard([board_name, req.params.id])
+      .then(board => {
+        res.status(200).send(board);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
   },
-  deletingBoard: (req, res, next) => {
-    console.log("Deleting board...");
+  deleteBoard: (req, res) => {
+    console.log(`Deleting board ${req.params.id}...`);
+    const db = req.app.get("db");
+
+    db.deleteBoard([req.params.id])
+      .then(board => {
+        res.status(200).send(board);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send(err);
+      });
   }
 };
