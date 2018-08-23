@@ -9,7 +9,7 @@
 }
 
 .header button {
-  background: hsla(0,0%,100%,.3);
+  background: hsla(0, 0%, 100%, 0.3);
   border-radius: 3px;
 }
 
@@ -20,7 +20,7 @@
   justify-content: center;
   align-items: center;
   border: none;
-  background: hsla(0,0%,100%,.3);
+  background: hsla(0, 0%, 100%, 0.3);
 }
 
 .header__home-btn img {
@@ -58,6 +58,11 @@
   align-items: center;
 }
 
+.header__create-board-btn span {
+  color: #fff;
+  margin-left: 10px;
+}
+
 .header__plus-icon {
   height: 15px;
   width: auto;
@@ -74,6 +79,6 @@
 }
 
 .header__current-user a {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }

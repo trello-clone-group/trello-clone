@@ -1,6 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const listController = require("./listController")
+
+// Controller Imports
+const boardController = require("./boardController");
+const listController = require("./listController");
+
 const massive = require("massive");
 const session = require("express-session");
 const passport = require("passport");
@@ -87,6 +91,7 @@ passport.deserializeUser(function(obj, done) {
 //////////////////////
 ///// ENDPOINTS //////
 //////////////////////
+
 // Login Endpoint
 app.get(
   "/login",
@@ -116,11 +121,23 @@ app.get("/profile", (req, res, next) => {
     });
 });
 
-app.listen(4000, () => {
-  console.log("Server is listening on port 4000");
-});
+/// Board Endpoints ///
+// Create Board Endpoint
+app.post("/api/board/new", boardController.createBoard);
+// Read Board Endpoint (Get a single board)
+app.get("/api/board/:id", boardController.readBoardByBoardId);
+// Read Boards Endpoint (Get all boards for a user)
+app.get("/api/boards/:id", boardController.readBoardsByUserId);
+// Update Board Endpoint
+app.put("/api/board/:id", boardController.updateBoard);
+// Delete Board Endpoint
+app.delete("/api/board/:id", boardController.deleteBoard);
 
 //Lists Endpoint
 app.get('/api/lists', listController.readLists)
 app.post('/api/lists', listController.createList)
 app.delete('/api/lists/:id', listController.deleteList)
+
+app.listen(4000, () => {
+  console.log("Server is listening on port 4000");
+});
