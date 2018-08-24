@@ -48,11 +48,14 @@ export default class Home extends Component {
   }
 
   render() {
+
     let { boardsData } = this.state;
 
     let boards = boardsData.map( (board, i) => {
       return (
-        <Link to={`board/${board.id}`} style={{textDecoration: 'none'}} >
+        <Link to={{
+          pathname: `board/${board.id}`,
+          }} style={{textDecoration: 'none'}} >
           <div className="board-preview" key={i} style={{backgroundColor: board.color}}>
             <h3>{board.name}</h3>
           </div>

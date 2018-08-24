@@ -7,15 +7,19 @@ import PlusIcon from './Plus_Icon.svg';
 import './Header.css';
 
 class Header extends Component {
+  constructor(props){
+    super(props);
+  }
 
   // Add Change Background Color Functionality
 
   render() {
+
     return (
       <header className='header'>
-        <a className='header__home-btn'>
+        <Link to="/" className='header__home-btn'>
           <img className='header__home-icon' alt='Home Icon' src={HomeIcon} />
-        </a>
+        </Link>
         <button className='header__boards-btn'>
           <a>Boards</a>
         </button>

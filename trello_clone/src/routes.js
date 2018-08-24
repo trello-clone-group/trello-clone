@@ -4,6 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Board from './components/Board/Board';
 import Header from './components/Header/Header';
+//import AddBoard from './components/AddBoard/Board';
+//import ChangeColor from './components/ChangeColor/ChangeColor';
 
 export default (
   <div>
