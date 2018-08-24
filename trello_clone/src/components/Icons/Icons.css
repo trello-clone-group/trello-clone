@@ -1,4 +1,4 @@
-.icon {
+.modal__icon {
   height: 18px;
   width: 20px;
 }
@@ -6,14 +6,14 @@
 /*********
 TITLE ICON
 **********/
-.title-icon {
+.modal__title-icon {
   background-color: darkGray;
   border-radius: 3px;
   display: flex;
   flex-direction: column;
 }
 
-.screen {
+.modal__screen {
   background-color: #EDEFF0;
   margin: 2px;
   height: 9px;
@@ -21,13 +21,13 @@ TITLE ICON
   border-radius: 2px;
 }
 
-.bottom {
+.modal__bottom {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.seg {
+.modal__seg {
   background-color: #EDEFF0;
   height: 2px;
   width: 12px;
@@ -35,7 +35,7 @@ TITLE ICON
   margin-right: 2px;
 }
 
-.dot {
+.modal__dot {
   background-color: #EDEFF0;
   height: 2px;
   width: 2px;
@@ -46,7 +46,7 @@ TITLE ICON
 /***************
 DESCRIPTION ICON
 ****************/
-.descr-icon {
+.modal__descr-icon {
   background-color: #EDEFF0;
   display: flex;
   flex-direction: column;
@@ -54,17 +54,17 @@ DESCRIPTION ICON
   align-items: flex-start;
 }
 
-.line {
+.modal__line {
   background-color: darkgray;
   height: 2px;
   border-radius: 1px;
 }
 
-.long {
+.modal__long {
   width: 20px;
 }
 
-.short {
+.modal__short {
   width: 12px;
 }
 
@@ -72,11 +72,11 @@ DESCRIPTION ICON
 /**********
 PERSON ICON
 ***********/
-.person-icon {
+.modal__person-icon {
   background-color: white;
 }
 
-.head {
+.modal__head {
   background-color: white;
   height: 4px;
   width: 4px;
@@ -85,7 +85,7 @@ PERSON ICON
   border: 2px solid darkgray;
 }
 
-.body {
+.modal__body {
   background-color: white;
   height: 8px;
   width: 8px;
@@ -95,7 +95,7 @@ PERSON ICON
   border: 2px solid darkgray;
 }
 
-.body::after {
+.modal__body::after {
   content: "";
   display: block;
   margin-top: 4px;

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import './Modal.css';
 import { TitleIcon, DescrIcon } from '../Icons/Icons';
+import { connect } from 'react-redux';
+import { changeDisplayModal } from '../../ducks/reducer';
 
 const dummyProps = {
   listName: 'Planning / PreCoding MVP',
 
 };
 
-export default class Modal extends Component {
+class Modal extends Component {
   constructor(props){
     super(props);
 
@@ -64,42 +66,48 @@ export default class Modal extends Component {
   }
 
   close() {
-    console.log('closing card');
+    this.props.changeDisplayModal(false);
   }
 
   render(){
 
     let { title, description, editDescription, editTitle } = this.state;
     let { listName } = dummyProps;
+
+    let { displayModal } = this.props;
     
     return (
-      <div className="modal-screen" >
-        <div className="modal">
+      (!displayModal)
+      ?
+      <button onClick={ () => this.props.changeDisplayModal(true)}>Click to display Modal</button>
+      :
+      <div className="modal__modal-screen" >
+        <div className="modal__modal">
 
-          <div className="left">
-            <div className="box">
+          <div className="modal__left">
+            <div className="modal__box">
               <TitleIcon />
-              <div className="little-box">
+              <div className="modal__little-box">
                 {
                   editTitle
                   ?
-                  <div className="title-input">
+                  <div className="modal__title-input">
                     <input type="text" value={title} onChange={ e => this.handleChange('title', e.target.value) }/>
-                    <p className="text-btn" onClick={ () => this.save('editTitle') } >SAVE</p>
+                    <p className="modal__text-btn" onClick={ () => this.save('editTitle') } >SAVE</p>
                   </div>
                   :
                   <h1 onClick={ () => this.edit('editTitle') }>{title}</h1>
                 }
-                <p className="text-btn">in list <a href={`#/boards/`}>{listName}</a></p>
+                <p className="modal__text-btn">in list <a href={`#/boards/`}>{listName}</a></p>
               </div>
             </div>
             
-            <div className="box">
+            <div className="modal__box">
               <DescrIcon />
-              <div className="little-box">
-                <div className="description">
+              <div className="modal__little-box">
+                <div className="modal__description">
                   <h2>Description</h2>
-                  <p className="text-btn"><a onClick={ () => this.edit('editDescription') } >{ (editDescription || !description) ? '' : 'EDIT' }</a></p>
+                  <p className="modal__text-btn"><a onClick={ () => this.edit('editDescription') } >{ (editDescription || !description) ? '' : 'EDIT' }</a></p>
                 </div>
                 {
                   (editDescription || !description)
@@ -112,11 +120,11 @@ export default class Modal extends Component {
                   editDescription
                   ?
                   (
-                    <div className="editing">
-                      <button className="save-btn btn" onClick={ () => this.save('editDescription') }>Save Changes</button>
-                      <div className="exit" onClick={ () => this.cancelEdit() }>
-                        <div className="one short line"></div>
-                        <div className="two short line"></div>
+                    <div className="modal__editing">
+                      <button className="modal__save-btn modal__btn" onClick={ () => this.save('editDescription') }>Save Changes</button>
+                      <div className="modal__exit" onClick={ () => this.cancelEdit() }>
+                        <div className="modal__one modal__short modal__line"></div>
+                        <div className="modal__two modal__short modal__line"></div>
                       </div>
                     </div>
                   )
@@ -127,12 +135,12 @@ export default class Modal extends Component {
             </div>
           </div>
 
-          <div className="right">
-            <div onClick={ () => this.close() }  className="exit">
-              <div className="one long line"></div>
-              <div className="two long line"></div>
+          <div className="modal__right">
+            <div onClick={ () => this.close() }  className="modal__exit">
+              <div className="modal__one modal__long modal__line"></div>
+              <div className="modal__two modal__long modal__line"></div>
             </div>
-            <button onClick={ () => this.delete() } className="btn">Delete Card</button>
+            <button onClick={ () => this.delete() } className="modal__btn">Delete Card</button>
           </div>
 
         </div>
@@ -140,3 +148,12 @@ export default class Modal extends Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  let { displayModal } = state;
+  return {
+    displayModal
+  }
+}
+
+export default connect(mapStateToProps, { changeDisplayModal })(Modal);

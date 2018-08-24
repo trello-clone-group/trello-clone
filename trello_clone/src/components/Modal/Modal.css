@@ -27,7 +27,7 @@ p {
   margin: 7px;
 }
 
-.modal-screen {
+.modal__modal-screen {
   height: 100vh;
   width: 100vw;
   Background-color: rgba(0, 0, 0, 0.400);
@@ -35,7 +35,7 @@ p {
   top: 0px;
 }
 
-.modal {
+.modal__modal {
   background-color: #EDEFF0;
   border-radius: 4px;
   width: 80%;
@@ -50,7 +50,7 @@ p {
   font-family: sans-serif;
 }
 
-.left {
+.modal__left {
   display: flex;
   flex-direction: column;
   justify-content: baseline;
@@ -58,7 +58,7 @@ p {
   width: 70%;
 }
 
-.right {
+.modal__right {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -66,26 +66,26 @@ p {
   margin: 10px;
 }
 
-.box {
+.modal__box {
   display: flex;
   flex-direction: row;
   justify-content: baseline;
   margin: 10px;
 }
 
-.little-box {
+.modal__little-box {
   width: 100%;
 }
 
-.title-input {
+.modal__title-input {
   display: flex;
 }
 
-.title-icon, .descr-icon {
+.modal__title-icon, .modal__descr-icon {
   margin: 7px;
 }
 
-.editing {
+.modal__editing {
   display: flex;
   justify-content: baseline;
   align-items: center;
@@ -105,12 +105,12 @@ textarea {
   margin: 7px;
 }
 
-.description{
+.modal__description{
   display: flex;
   align-items: center;
 }
 
-.btn {
+.modal__btn {
   background-color: rgb(235, 92, 92);
   border-radius: 4px;
   cursor: pointer;
@@ -121,19 +121,19 @@ textarea {
   letter-spacing: 2px;
   padding: 7px;
 }
-button:hover {
+.modal__btn:hover {
   background-color: rgb(225, 28, 28);
 }
 
-.save-btn {
+.modal__save-btn {
   background-color: rgb(41, 245, 41);
   margin: 7px;
 }
-.save-btn:hover {
+.modal__save-btn:hover {
   background-color: rgb(11, 209, 11);
 }
 
-.exit {
+.modal__exit {
   height: 30px;
   width: 30px;
   display: flex;
@@ -142,26 +142,26 @@ button:hover {
   align-items: center;
   cursor: pointer;
 }
-.exit:hover {
+.modal__exit:hover {
   filter: brightness(70%);
 }
 
-.one {
+.modal__one {
   margin: -2px;
   transform: rotate(45deg);
 }
 
-.two {
+.modal__two {
   transform: rotate(-45deg);
 }
 
-.text-btn {
+.modal__text-btn {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: bold;
   color: rgb(117, 117, 117);
   cursor: pointer;
 }
-.text-btn:hover {
+.modal__text-btn:hover {
   color: black;
 }
