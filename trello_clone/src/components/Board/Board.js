@@ -7,6 +7,7 @@ import './Board.css'
 
 
 export default class Board extends Component {
+    
 
     render(){
         

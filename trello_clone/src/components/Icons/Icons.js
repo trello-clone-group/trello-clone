@@ -3,11 +3,11 @@ import './Icons.css';
 
 export function TitleIcon() {
   return (
-    <div className="icon title-icon">
-      <div className="screen"></div>
-      <div className="bottom">
-        <div className="seg"></div>
-        <div className="dot"></div>
+    <div className="modal__icon modal__title-icon">
+      <div className="modal__screen"></div>
+      <div className="modal__bottom">
+        <div className="modal__seg"></div>
+        <div className="modal__dot"></div>
       </div>
     </div>
   );
@@ -15,20 +15,20 @@ export function TitleIcon() {
 
 export function DescrIcon() {
   return (
-    <div className="icon descr-icon">
-      <div className="long line"></div>
-      <div className="long line"></div>
-      <div className="long line"></div>
-      <div className="short line"></div>
+    <div className="modal__icon modal__descr-icon">
+      <div className="modal__long modal__line"></div>
+      <div className="modal__long modal__line"></div>
+      <div className="modal__long modal__line"></div>
+      <div className="modal__short modal__line"></div>
     </div>
   );
 }
 
 export function PersonIcon() {
   return (
-    <div className="icon person-icon">
-      <div className="head"></div>
-      <div className="body"></div>
+    <div className="modal__icon modal__person-icon">
+      <div className="modal__head"></div>
+      <div className="modal__body"></div>
     </div>
   );
 }

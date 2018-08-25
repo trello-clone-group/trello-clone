@@ -1,25 +1,15 @@
-import React, { Component } from "react";
-
-// Style Imports
-import "./App.css";
-import "./reset.css";
-
-// Component Imports
-import Home from "./components/Home/Home";
-import Header from "./components/Header/Header";
-import Modal from "./components/Modal/Modal";
-import Board from "./components/Board/Board";
-import Auth from "./components/Auth/Auth";
+import React, { Component } from 'react';
+import './reset.css';
+import './App.css';
+import routes from './routes.js';
+import Modal from './components/Modal/Modal';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Home />
-        <Header />
+        { routes }
         <Modal />
-        <Board />
-        <Auth />
       </div>
     );
   }
