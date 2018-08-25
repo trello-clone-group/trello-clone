@@ -138,6 +138,10 @@ app.get('/api/lists', listController.readLists)
 app.post('/api/lists', listController.createList)
 app.delete('/api/lists/:id', listController.deleteList)
 
+// Card Enpoints
+
+
+
 app.listen(4000, () => {
   console.log("Server is listening on port 4000");
 });
