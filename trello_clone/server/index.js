@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 // Controller Imports
 const boardController = require("./boardController");
 const listController = require("./listController");
+const cardController = require("./cardController");
 
 const massive = require("massive");
 const session = require("express-session");
@@ -20,7 +21,7 @@ app.use(bodyParser.json());
 /////////////////////
 massive(process.env.CONNECTIONSTRING)
   .then(dbInstance => {
-    app.set("db", dbInstance);
+    app.set('db', dbInstance);
     console.log("Connected to database");
   })
   .catch(err => {
@@ -139,7 +140,11 @@ app.post('/api/lists', listController.createList)
 app.delete('/api/lists/:id', listController.deleteList)
 
 // Card Enpoints
-
+app.get('/api/card/:id', cardController.readCard); // get cards by card id
+app.get('/api/cards/:id', cardController.readCardsByList); // get cards by list id
+app.post('/api/card', cardController.createCard); // makes new card and sends back all cards from the same list
+app.put('/api/card/:id', cardController.editCard); // edits card w/ given id and sends back cards from same list
+app.delete('/api/card/:id', cardController.deleteCard); // deletes card w/ given id
 
 
 app.listen(4000, () => {
