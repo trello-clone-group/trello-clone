@@ -7,11 +7,16 @@ import PlusIcon from "./Plus_Icon.svg";
 import "./Header.css";
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   // Add Create Board functionality
+  createBoard(){
+    console.log('creating board');
+  }
+
   // Add Change Background Color Functionality
+  changeBackground(){
+    console.log('changing background');
+  }
 
   render() {
     return (
@@ -28,7 +33,7 @@ class Header extends Component {
         <button className="header__create-board-btn">
           <a>
             <img className="header__plus-icon" alt="Plus Icon" src={PlusIcon} />
-            <span className="header__create-board-text" onClick="">
+            <span className="header__create-board-text" onClick={ () => this.createBoard() }>
               Add New Board
             </span>
           </a>

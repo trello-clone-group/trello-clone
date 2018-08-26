@@ -1,35 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Axios from 'axios';
 import './Home.css';
 import { PersonIcon } from '../Icons/Icons';
 
-const dummyBoardsData = [
-  {
-    name: 'Welcome Board',
-    color: 'green',
-    id: 1
-  },
-  {
-    name: 'My Board',
-    color: 'red',
-    id: 3
-  },
-  {
-    name: 'Trello Clone',
-    color: 'royalblue',
-    id: 6
-  },
-  {
-    name: 'Starter Board',
-    color: 'orangered',
-    id: 17
-  },
-  {
-    name: 'The longest name for a board that you have ever seen yet to become the secon longset',
-    color: 'blueviolet',
-    id: 2
-  },
-];
+const DUMMY_USER_ID = 1;
 
 export default class Home extends Component {
   constructor(props) {
@@ -44,7 +19,11 @@ export default class Home extends Component {
   componentDidMount(){
     // when server is up:
     //  Axios request for the user's boards
-    this.setState({ boardsData: dummyBoardsData }); // dummy data for now
+    Axios.get(`/api/boards/${DUMMY_USER_ID}`)
+      .then( response => {
+        this.setState({ boardsData: response.data });
+      })
+      .catch( err => console.log(err.message));
   }
 
   render() {
@@ -53,11 +32,11 @@ export default class Home extends Component {
 
     let boards = boardsData.map( (board, i) => {
       return (
-        <Link to={{
-          pathname: `board/${board.id}`,
+        <Link key={i} to={{
+          pathname: `board/${board.board_id}`,
           }} style={{textDecoration: 'none'}} >
-          <div className="board-preview" key={i} style={{backgroundColor: board.color}}>
-            <h3>{board.name}</h3>
+          <div className="board-preview" style={{backgroundColor: board.color}}>
+            <h3>{board.board_name}</h3>
           </div>
         </Link>
       );
