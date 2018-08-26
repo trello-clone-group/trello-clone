@@ -134,12 +134,12 @@ app.put("/api/board/:id", boardController.updateBoard);
 // Delete Board Endpoint
 app.delete("/api/board/:id", boardController.deleteBoard);
 
-//Lists Endpoint
+/// List Endpoints ///
 app.get('/api/lists', listController.readLists)
 app.post('/api/lists', listController.createList)
 app.delete('/api/lists/:id', listController.deleteList)
 
-// Card Enpoints
+/// Card Endpoints ///
 app.get('/api/card/:id', cardController.readCard); // get cards by card id
 app.get('/api/cards/:id', cardController.readCardsByList); // get cards by list id
 app.post('/api/card', cardController.createCard); // makes new card and sends back all cards from the same list
