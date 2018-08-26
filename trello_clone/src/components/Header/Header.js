@@ -7,15 +7,14 @@ import PlusIcon from "./Plus_Icon.svg";
 import "./Header.css";
 
 class Header extends Component {
-
   // Add Create Board functionality
-  createBoard(){
-    console.log('creating board');
+  createBoard() {
+    console.log("creating board");
   }
 
   // Add Change Background Color Functionality
-  changeBackground(){
-    console.log('changing background');
+  changeBackground() {
+    console.log("changing background");
   }
 
   render() {
@@ -24,16 +23,16 @@ class Header extends Component {
         <Link to="/" className="header__home-btn">
           <img className="header__home-icon" alt="Home Icon" src={HomeIcon} />
         </Link>
-        <button className="header__boards-btn">
-          <a>Boards</a>
-        </button>
         <div className="header__logo">
-          <a>TrelloClone</a>
+          <Link to="/">TrelloClone</Link>
         </div>
         <button className="header__create-board-btn">
           <a>
             <img className="header__plus-icon" alt="Plus Icon" src={PlusIcon} />
-            <span className="header__create-board-text" onClick={ () => this.createBoard() }>
+            <span
+              className="header__create-board-text"
+              onClick={() => this.createBoard()}
+            >
               Add New Board
             </span>
           </a>
