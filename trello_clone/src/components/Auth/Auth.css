@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.auth__container {
+  background: url(https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/d84b3c6b1f07d701acb1a153002f7e6a/usecases-bg.jpg)
+    center left / cover no-repeat #0079bf;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.auth__header {
+  background-color: #0079bf;
+  height: 2em;
+  left: 0;
+  padding: 1em 0.75em;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.auth__header-left {
+  float: left;
+}
+
+.auth__header-logo-link {
+  display: block;
+  float: left;
+  height: 2em;
+  margin-right: 0.75em;
+}
+
+.auth__header-logo {
+  height: 100%;
+}
+
+.auth__header-right {
+  float: right;
+}
+
+.auth__header-login-btn {
+  font-family: "Montserrat", sans-serif;
+  border-radius: 0.4em;
+  display: inline-block;
+  font-size: 0.8em;
+  line-height: 1.1em;
+  margin: 0 0.25em;
+  padding: 0.7em 1.3em;
+  text-decoration: none;
+  vertical-align: top;
+  background-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.777em;
+  line-height: 1.2em;
+  margin-top: 1.6em;
+  color: #fff;
+  width: 50%;
+}
+
+p {
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+  width: 50%;
+}
+
+@media (max-width: 1000px) {
+  h1 {
+    width: 80%;
+  }
+
+  p {
+    width: 80%;
+  }
+}
+
+.auth__signin-btn {
+  font-family: "Montserrat", sans-serif;
+  background: -webkit-linear-gradient(top, #61bd4f 0, #5aac44 100%);
+  background: linear-gradient(to bottom, #61bd4f 0, #5aac44 100%);
+  box-shadow: 0 2px 0 #3f6f21;
+  color: #fff;
+  padding-left: 1.8em;
+  padding-right: 1.8em;
+  border: 0;
+  border-radius: 0.3em;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.9em;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0.3em 1em 1em 0;
+  outline: 0;
+  padding: 0.7em 1.2em;
+  position: relative;
+  text-decoration: none;
+}
+
+.auth__button-link {
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
