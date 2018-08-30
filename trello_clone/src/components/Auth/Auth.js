@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // Component Styles
-// import "./Auth.css";
+import "./Auth.css";
 
 class Auth extends Component {
   render() {
