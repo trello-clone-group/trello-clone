@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 /////////////////////
 massive(process.env.CONNECTIONSTRING)
   .then(dbInstance => {
-    app.set('db', dbInstance);
+    app.set("db", dbInstance);
     console.log("Connected to database");
   })
   .catch(err => {
@@ -135,19 +135,17 @@ app.put("/api/board/:id", boardController.updateBoard);
 app.delete("/api/board/:id", boardController.deleteBoard);
 
 /// List Endpoints ///
-app.get('/api/lists', listController.readLists)
-app.post('/api/lists', listController.createList)
-app.delete('/api/lists/:id', listController.deleteList)
+app.get("/api/lists", listController.readLists);
+app.post("/api/lists", listController.createList);
+app.delete("/api/lists/:id", listController.deleteList);
 
 /// Card Endpoints ///
-app.get('/api/card/:id', cardController.readCard); // get cards by card id
-app.get('/api/cards/:id', cardController.readCardsByList); // get cards by list id
-app.post('/api/card', cardController.createCard); // makes new card and sends back all cards from the same list
-app.put('/api/card/:id', cardController.editCard); // edits card w/ given id and sends back cards from same list
-app.delete('/api/card/:id', cardController.deleteCard); // deletes card w/ given id
-
+app.get("/api/card/:id", cardController.readCard); // get cards by card id
+app.get("/api/cards/:id", cardController.readCardsByList); // get cards by list id
+app.post("/api/card", cardController.createCard); // makes new card and sends back all cards from the same list
+app.put("/api/card/:id", cardController.editCard); // edits card w/ given id and sends back cards from same list
+app.delete("/api/card/:id", cardController.deleteCard); // deletes card w/ given id
 
 app.listen(4000, () => {
   console.log("Server is listening on port 4000");
 });
-
