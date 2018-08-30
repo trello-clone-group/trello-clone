@@ -52,8 +52,8 @@ export default class Board extends Component {
         
         return(
              
-            <div className='boardBackground' style={{backgroundColor: color}}>
-                <div className='boardSubHeader' style={{backgroundColor: color}}>
+            <div className='boardBackground' /*style={{backgroundColor: color}}*/>
+                <div className='boardSubHeader' /*style={{backgroundColor: color}}*/>
                  <h3 className='boardTitle'>{board_name}</h3>
                  </div>
                  <div className='listsContainer'>
