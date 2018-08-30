@@ -21,7 +21,7 @@ class Header extends Component {
   render() {
     return (
       <header className="header">
-        <Link to="/" className="header__home-btn">
+        <Link to="/dashboard" className="header__home-btn">
           <img className="header__home-icon" alt="Home Icon" src={HomeIcon} />
         </Link>
         <button className="header__boards-btn">

@@ -35,7 +35,7 @@ export default class Board extends Component {
         // get listData
         Axios.get(`/api/lists/`)
             .then( response => {
-                let lists = response.data.filter(list => list.board_id == id);
+                let lists = response.data.filter(list => list.board_id === parseInt(id));
                 this.setState({ listsData: lists });
             })
             .catch( err => err.message );

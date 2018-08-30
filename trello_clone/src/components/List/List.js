@@ -2,12 +2,13 @@ import React,  { Component } from 'react';
 import Axios from 'axios';
 import Card from '../Card/Card';
 import './List.css';
+//import { connect } from 'net';
+import { connect } from 'react-redux';
 //import { Link } from 'react-router-dom';
 
-//import { connect } from 'react-redux'
 
 
-export default class List extends Component {
+class List extends Component {
     constructor(props){
         super(props);
 
@@ -26,7 +27,7 @@ export default class List extends Component {
 
         Axios.get('/api/lists')
             .then(response => {
-                let list = response.data.filter(item => item.list_id == listId );
+                let list = response.data.filter(item => item.list_id === parseInt(listId) );
                 this.setState({ listData: list[0] });
             })
 
@@ -54,3 +55,12 @@ export default class List extends Component {
         )
     }
 }
+
+function mapStateToProps(state){
+    let { displayModal } = state;
+    return {
+        displayModal
+    }
+}
+
+export default connect(mapStateToProps)(List);
