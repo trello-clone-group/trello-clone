@@ -7,7 +7,7 @@ module.exports = {
     //const user_id = req.session.user_id;
     db.createBoard([board_name, user_id])
       .then(board => {
-        res.status(200).send(board);
+        res.status(201).send(board);
       })
       .catch(err => {
         res.status(500).send(err);
