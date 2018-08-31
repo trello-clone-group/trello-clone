@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "028cdf09-5e34-4999-bb9e-fd59baa5eb82",
+		"name": "Trello Card Enpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get card by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "15f2ecf8-9332-4582-82d4-3b12fd17fcca",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"let correctResponse = {",
+							"    card_id: 10,",
+							"    card_title: \"Card Ten\",",
+							"    description: \"Here is a quick little description\",",
+							"    list_id: 4",
+							"};",
+							"",
+							"pm.test(\"Return status 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"correct response of card 10\", function(){",
+							"    pm.expect(response[0]).to.eql(correctResponse);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/card/10",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"card",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get cards by list id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c61055ef-568f-4c1d-8bb9-ed975cdfdbbf",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Return status 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Each have '10' as a list_id\", function(){",
+							"    let correctId = response.every(item => item.list_id == 10);",
+							"    pm.expect(correctId).to.eql(true);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/cards/10",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"cards",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create new card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6bb5f44b-ac31-4d06-9582-c974d46aeef7",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Return status 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"all cards from the same list are returned\", function(){",
+							"    let fromList = response.every(item => item.list_id === 12);",
+							"    pm.expect(fromList).to.eql(true);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"card_title\": \"Some Card\",\n    \"description\": \"Here is a quick little description\",\n    \"list_id\": 12\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/card",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"card"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit card 10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8aa01db8-786c-4924-8bd1-f8173315e20f",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"const correct = {",
+							"    card_title: \"Some Card\",",
+							"    description: \"Here is a quick little description\",",
+							"    list_id: 8,",
+							"    card_id: 35",
+							"}",
+							"",
+							"pm.test(\"Return status 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Edited card is found in response\", function(){",
+							"    let hasItem = response.some(item => {",
+							"        let equal = true;",
+							"        if(item.card_id != 35){",
+							"            equal = false;",
+							"        }",
+							"        if(item.card_title != \"Some Card\"){",
+							"            equal = false;",
+							"        }",
+							"        if(item.description != \"Here is a quick little description\"){",
+							"            equal = false;",
+							"        }",
+							"        if(item.list_id != 8){",
+							"            equal = false;",
+							"        }",
+							"        return equal",
+							"    });",
+							"    pm.expect(hasItem).to.eql(true);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c3715d90-fa5e-4530-98e2-611733372b4d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"card_title\": \"Some Card\",\n    \"description\": \"Here is a quick little description\",\n    \"list_id\": 8\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/card/35",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"card",
+						"35"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete card 10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bdcec43f-1fcf-4c50-a94f-865d924c0c75",
+						"type": "text/javascript",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Return status 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Expect text response\", function(){",
+							"    pm.expect(response).to.eql(true);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/card/10",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"card",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

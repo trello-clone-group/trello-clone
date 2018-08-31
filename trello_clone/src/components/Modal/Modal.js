@@ -1,41 +1,53 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 import './Modal.css';
 import { TitleIcon, DescrIcon } from '../Icons/Icons';
 import { connect } from 'react-redux';
-import { changeDisplayModal } from '../../ducks/reducer';
-
-const dummyProps = {
-  listName: 'Planning / PreCoding MVP',
-
-};
+import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
 
 class Modal extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      title: 'Create MVP',
-      description: '',
       prevDescription: '',
       editDescription: false,
       editTitle: false
     }
 
-    this.handleChange = this.handleChange.bind(this);
     this.edit = this.edit.bind(this);
+    this.save = this.save.bind(this);
   }
 
-  handleChange(key, val) {
-    let obj = {};
-    obj[key] = val;
-    this.setState( obj );
+  componentDidMount(){
+    // TODO: componentDidMount only fires once. I have to figure out how to pass the list_title down to modal
+
+    // let { list_id } = this.props.modalData;
+    // if (!list_id) {
+    //   return;
+    // }
+    // Axios.get('/api/lists')
+    //   .then(response => {
+    //     console.log(response.data);
+    //     let listTitle = response.data.filter(item => item.list_id ==)
+    //   })
+    //   .catch(err => console.log(err.message));
+  }
+
+  handleTitleChange(val) {
+    let newData = Object.assign({}, this.props.modalData, { card_title: val });
+    this.props.changeModalData(newData);
+  }
+  handleDescrChange(val){
+    let newData = Object.assign({}, this.props.modalData, { description: val});
+    this.props.changeModalData(newData);
   }
 
   edit(key) {
     let obj = {};
     obj[key] = true;
     if (key === "editDescription") {
-      let desc = this.state.description;
+      let desc = this.props.modalData.description;
       this.setState({
         prevDescription: desc,
         editDescription: true
@@ -45,24 +57,35 @@ class Modal extends Component {
     }
   }
 
-  save(key) {
+  save(key){
+    let { card_id, card_title, description, list_id } = this.props.modalData;
+    Axios.put(`/api/card/${card_id}`, { card_title, description, list_id })
+      .then( response => {
+        console.log(response.data);
+      } )
+      .catch( err => console.log( err.message ) );
+
     let obj = {};
     obj[key] = false;
     this.setState( obj );
   }
 
   cancelEdit() {
-    console.log('cancelEdit');
     let desc = this.state.prevDescription;
+    this.props.changeModalData( Object.assign({}, this.props.modalData, {description: desc }));
     this.setState({
       editDescription: false,
-      description: desc,
       prevDescription: ''
     });
   }
 
   delete() {
-    console.log('deleting card');
+    let { card_id } = this.props.modalData;
+    Axios.delete(`/api/card/${card_id}`)
+      .then(response => console.log(response.data))
+      .catch( err => console.log(err.message) );
+
+    this.props.changeDisplayModal(false);
   }
 
   close() {
@@ -71,15 +94,15 @@ class Modal extends Component {
 
   render(){
 
-    let { title, description, editDescription, editTitle } = this.state;
-    let { listName } = dummyProps;
-
-    let { displayModal } = this.props;
+    let { editDescription, editTitle } = this.state;
+    let { displayModal, modalData } = this.props;
+    let { card_id, card_title, description, list_id } = modalData;
+    let list_title = "fun";
     
     return (
       (!displayModal)
       ?
-      <button onClick={ () => this.props.changeDisplayModal(true)}>Click to display Modal</button>
+      <p></p>
       :
       <div className="modal__modal-screen" >
         <div className="modal__modal">
@@ -92,13 +115,13 @@ class Modal extends Component {
                   editTitle
                   ?
                   <div className="modal__title-input">
-                    <input type="text" value={title} onChange={ e => this.handleChange('title', e.target.value) }/>
+                    <input type="text" value={card_title} onChange={ e => this.handleTitleChange(e.target.value) }/>
                     <p className="modal__text-btn" onClick={ () => this.save('editTitle') } >SAVE</p>
                   </div>
                   :
-                  <h1 onClick={ () => this.edit('editTitle') }>{title}</h1>
+                  <h1 onClick={ () => this.edit('editTitle') }>{card_title}</h1>
                 }
-                <p className="modal__text-btn">in list <a href={`#/boards/`}>{listName}</a></p>
+                <p className="modal__text-btn">in list {list_title}</p>
               </div>
             </div>
             
@@ -112,7 +135,7 @@ class Modal extends Component {
                 {
                   (editDescription || !description)
                   ?
-                  <textarea onClick={ () => this.edit('editDescription') } onChange={ e => this.handleChange('description', e.target.value) } type="text" placeholder="Add a more detailed description..." value={description}/>
+                  <textarea onClick={ () => this.edit('editDescription') } onChange={ e => this.handleDescrChange(e.target.value) } type="text" placeholder="Add a more detailed description..." value={description}/>
                   :
                   <p>{description}</p>
                 }
@@ -150,10 +173,11 @@ class Modal extends Component {
 }
 
 function mapStateToProps(state){
-  let { displayModal } = state;
+  let { displayModal, modalData } = state;
   return {
-    displayModal
+    displayModal,
+    modalData
   }
 }
 
-export default connect(mapStateToProps, { changeDisplayModal })(Modal);
+export default connect(mapStateToProps, { changeDisplayModal, changeModalData })(Modal);

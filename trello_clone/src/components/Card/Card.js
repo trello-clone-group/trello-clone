@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import './Card.css';
+import { connect } from 'react-redux';
+import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
 //import { Link } from 'react-router-dom';
 
 //import { connect } from 'react-redux'
 
 
-export default class Card extends Component {
+class Card extends Component {
     constructor(props){
         super(props);
 
@@ -30,12 +32,17 @@ export default class Card extends Component {
             .catch( err => console.log(err.message));
     }
 
+    displayModal(){
+        this.props.changeModalData( this.state.cardData );
+        this.props.changeDisplayModal( true );
+    }
+
     render(){
         let { card_title } = this.state.cardData;
         
         return(
            
-              <div className='cardWrapper'>
+              <div onClick={() => this.displayModal() } className='cardWrapper'>
                   <div className='cardBody'>
                     {card_title}
                  </div>
@@ -43,3 +50,12 @@ export default class Card extends Component {
         )
     }
 }
+
+function mapStateToProps(state){
+    let { displayModal } = state;
+    return {
+        displayModal
+    };
+}
+
+export default connect(mapStateToProps, { changeDisplayModal, changeModalData })(Card);
