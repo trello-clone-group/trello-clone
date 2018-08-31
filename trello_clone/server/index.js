@@ -135,9 +135,11 @@ app.put("/api/board/:id", boardController.updateBoard);
 app.delete("/api/board/:id", boardController.deleteBoard);
 
 /// List Endpoints ///
-app.get("/api/lists", listController.readLists);
-app.post("/api/lists", listController.createList);
-app.delete("/api/lists/:id", listController.deleteList);
+app.get('/api/lists', listController.readLists);
+app.get('/api/lists/byBoard/:boardID', listController.readListsByBoardID);
+app.post('/api/lists', listController.createList);
+app.delete('/api/lists/:id', listController.deleteList);
+app.put('/api/lists/:listID', listController.editList);
 
 /// Card Endpoints ///
 app.get("/api/card/:id", cardController.readCard); // get cards by card id

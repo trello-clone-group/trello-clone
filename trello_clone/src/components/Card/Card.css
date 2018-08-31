@@ -1,7 +1,9 @@
 .cardBody{
-    height: 175px;
-    width: 200px;
+    width: 212px;
+    padding: 10px;
     background-color: white;
     margin: auto;
     margin-top: 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 0.5px 0px  rgb(126, 126, 126);
 }
