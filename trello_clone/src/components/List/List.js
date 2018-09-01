@@ -46,8 +46,11 @@ export default class List extends Component {
         return(
            
               <div className = 'listBody'>
-                <h3>{list_name}</h3>
+                <h3 className = "listTitle">{list_name}</h3>
                 { cards }
+                <div className = 'cardBody addCard'>
+                    + Add Another Card
+                </div>
                 </div>
     
              
