@@ -8,3 +8,14 @@
     vertical-align: top;
     border-radius: 4px;
 }
+.listTitle{
+    font-weight: bold;
+    font-size: 15px;
+}
+.newList{
+    opacity: .3;
+}
+
+.newList:hover{
+    opacity: 1;
+}

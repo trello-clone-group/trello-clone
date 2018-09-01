@@ -7,3 +7,11 @@
     border-radius: 4px;
     box-shadow: 0 1px 0.5px 0px  rgb(126, 126, 126);
 }
+
+.addCard{
+    opacity: .3;
+}
+
+.addCard:hover{
+    opacity: 1;
+}

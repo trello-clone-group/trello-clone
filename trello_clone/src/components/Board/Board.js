@@ -54,10 +54,13 @@ export default class Board extends Component {
              
             <div className='boardBackground' /*style={{backgroundColor: color}}*/>
                 <div className='boardSubHeader' /*style={{backgroundColor: color}}*/>
-                 <h3 className='boardTitle'>{board_name}</h3>
+                 <h2 className='boardTitle'>{board_name}</h2>
                  </div>
                  <div className='listsContainer'>
                      { lists }
+                <div className = 'listBody newList'>
+                   + Add Another List 
+                </div>
                 </div>
                     
             </div>
