@@ -70,6 +70,16 @@ class Modal extends Component {
     this.setState( obj );
   }
 
+  newCard(card_title, description, list_id){
+    Axios.post('/api/card', { card_title, description, list_id })
+      .then(response => {
+        console.log(response.data);
+        
+      })
+      .catch(err => console.log(err.message));
+    this.props.changeDisplayModal(false);
+  }
+
   cancelEdit() {
     let desc = this.state.prevDescription;
     this.props.changeModalData( Object.assign({}, this.props.modalData, {description: desc }));
@@ -90,6 +100,7 @@ class Modal extends Component {
 
   close() {
     this.props.changeDisplayModal(false);
+    this.setState({ editTitle: true });
   }
 
   render(){
@@ -97,7 +108,7 @@ class Modal extends Component {
     let { editDescription, editTitle } = this.state;
     let { displayModal, modalData } = this.props;
     let { card_id, card_title, description, list_id } = modalData;
-    let list_title = "fun";
+    let list_title = "CHANGE_ME";
     
     return (
       (!displayModal)
@@ -112,7 +123,7 @@ class Modal extends Component {
               <TitleIcon />
               <div className="modal__little-box">
                 {
-                  editTitle
+                  (editTitle || !card_title)
                   ?
                   <div className="modal__title-input">
                     <input type="text" value={card_title} onChange={ e => this.handleTitleChange(e.target.value) }/>
@@ -163,6 +174,7 @@ class Modal extends Component {
               <div className="modal__one modal__long modal__line"></div>
               <div className="modal__two modal__long modal__line"></div>
             </div>
+            <button onClick={() => this.newCard(card_title, description, list_id)} className="modal__save-btn modal__btn" >New Card</button>
             <button onClick={ () => this.delete() } className="modal__btn">Delete Card</button>
           </div>
 

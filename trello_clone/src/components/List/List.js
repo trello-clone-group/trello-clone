@@ -2,11 +2,9 @@ import React,  { Component } from 'react';
 import Axios from 'axios';
 import Card from '../Card/Card';
 import './List.css';
-//import { connect } from 'net';
 import { connect } from 'react-redux';
+import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
 //import { Link } from 'react-router-dom';
-
-
 
 class List extends Component {
     constructor(props){
@@ -22,6 +20,11 @@ class List extends Component {
         }
     }
 
+    addCard(){
+        this.props.changeDisplayModal(true);
+        this.props.changeModalData(Object.assign({}, {list_id: this.state.listData.list_id}));
+    }
+
     componentDidMount(){
         let { listId } = this.props;
 
@@ -30,7 +33,11 @@ class List extends Component {
                 let list = response.data.filter(item => item.list_id === parseInt(listId) );
                 this.setState({ listData: list[0] });
             })
+        this.getCardData();
+    }
 
+    getCardData(){
+        let { listId } = this.props;
         Axios.get(`api/cards/${listId}`)
             .then( response => {
                 this.setState({ cardsData: response.data });
@@ -49,7 +56,7 @@ class List extends Component {
               <div className = 'listBody'>
                 <h3 className = "listTitle">{list_name}</h3>
                 { cards }
-                <div className = 'cardBody addCard'>
+                <div onClick={() => this.addCard()} className = 'cardBody addCard'>
                     + Add Another Card
                 </div>
                 </div>
@@ -66,4 +73,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps)(List);
+export default connect(mapStateToProps, { changeDisplayModal, changeModalData })(List);

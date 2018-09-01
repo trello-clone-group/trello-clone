@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
+import { connect } from 'react-redux';
+import { initializeUser } from '../../ducks/reducer';
 import './Home.css';
 import { PersonIcon } from '../Icons/Icons';
 
 const DUMMY_USER_ID = 1;
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     
@@ -19,11 +21,21 @@ export default class Home extends Component {
   componentDidMount(){
     // when server is up:
     //  Axios request for the user's boards
-    Axios.get(`/api/boards/${DUMMY_USER_ID}`)
-      .then( response => {
-        this.setState({ boardsData: response.data });
+    Axios.get('/profile')
+      .then(response => {
+        console.log(response.data);
+        // initialize user here
+        this.props.initializeUser(response.data);
+
+        Axios.get(`/api/boards/${response.data.user_id}`)
+          .then( response => {
+            this.setState({ boardsData: response.data });
+            
+          })
+          .catch( err => console.log(err.message));
       })
-      .catch( err => console.log(err.message));
+      .catch(err => console.log(err.message));
+
   }
 
   render() {
@@ -60,3 +72,15 @@ export default class Home extends Component {
   }
 
 }
+
+function mapStateToProps(state){
+  let { user_id, username, firstname, lastname } = state;
+  return {
+    user_id,
+    username,
+    firstname,
+    lastname
+  }
+}
+
+export default connect(mapStateToProps, { initializeUser })(Home);
