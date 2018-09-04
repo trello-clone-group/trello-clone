@@ -1,24 +1,29 @@
 let initialState = {
+  user_id: null,
+  firstName: '',
+  lastName: '',
+  username: '',
+  board_id: null,
+  lists: [],
+  cards: [],
   displayModal: false,
   modalData: {
     card_id: null,
     card_title: '',
     description: '',
     list_id: null
-  },
-  user_id: null,
-  username: '',
-  firstName: '',
-  lastName: ''
-};
+  }
+}
 
-const CHANGE_DISPLAY_MODAL = "CHANGE_DISPLAY_CARD_MODAL";
+const CHANGE_DISPLAY_MODAL = "CHANGE_DISPLAY_MODAL";
 const CHANGE_MODAL_DATA = "CHANGE_MODAL_DATA";
 const INITIALIZE_USER = "INITIALIZE_USER";
 
 export default function reducer(state = initialState, action) {
   let { type, payload } = action;
   switch( type ){
+    case SET_BOARD_ID:
+      return { ...state, board_id: payload }; // untested
     case CHANGE_DISPLAY_MODAL:
       return Object.assign({}, state, { displayModal: action.payload });
     case CHANGE_MODAL_DATA:
@@ -30,6 +35,12 @@ export default function reducer(state = initialState, action) {
   }
 }
 
+export function setBoardId(id){ // untested
+  return {
+    type: SET_BOARD_ID,
+    payload: id
+  }
+}
 export function changeDisplayModal(bool){
   return {
     type: CHANGE_DISPLAY_MODAL,
