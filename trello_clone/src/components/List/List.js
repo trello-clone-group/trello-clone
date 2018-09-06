@@ -3,9 +3,8 @@ import Axios from 'axios';
 import Card from '../Card/Card';
 import './List.css';
 import { connect } from 'react-redux';
-import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
+import { changeDisplayModal, changeModalData, updateLists, updateCards } from '../../ducks/reducer';
 import { CancelIcon, SettingsIcon } from '../Icons/Icons';
-//import { Link } from 'react-router-dom';
 
 class List extends Component {
     constructor(props){
@@ -20,33 +19,24 @@ class List extends Component {
             displayDelete: false,
             editingListTitle: false,
             previousListTitle: '',
-            cardsData: []
         }
+    }
+
+    componentDidMount(){
+        let { listId, lists } = this.props;
+        let data = lists.find(list => list.list_id === listId);
+        this.setState({ listData: data });
     }
 
     addCard(){
         this.props.changeDisplayModal(true);
-        this.props.changeModalData(Object.assign({}, {list_id: this.state.listData.list_id}));
-    }
-
-    componentDidMount(){
-        let { listId } = this.props;
-
-        Axios.get('/api/lists')
-            .then(response => {
-                let list = response.data.filter(item => item.list_id === parseInt(listId) );
-                this.setState({ listData: list[0] });
-            })
-        this.getCardData();
-    }
-
-    getCardData(){
-        let { listId } = this.props;
-        Axios.get(`api/cards/${listId}`)
-            .then( response => {
-                this.setState({ cardsData: response.data });
-            })
-            .catch( err => console.log(err.message));
+        let data = {
+            list_id: this.props.listId,
+            title: '',
+            description: '',
+            list_title: this.state.listData.list_title
+        }
+        this.props.changeModalData( data );
     }
 
     editName(){
@@ -78,7 +68,6 @@ class List extends Component {
     }
 
     handleChange(value){
-        console.log(value);
         let newData = { ...this.state.listData };
         newData.list_name = value;
         this.setState({ listData: newData });
@@ -94,10 +83,13 @@ class List extends Component {
     }
 
     render(){
-        let { listData, cardsData, editingListTitle, displayDelete } = this.state;
+        let { cardsData } = this.props;
+        let { listData, editingListTitle, displayDelete } = this.state;
         let { list_name } = listData;
 
-        let cards = cardsData.map((card, i) => <Card key={i} cardId={card.card_id}/>);
+        let cardComponents = cardsData
+            .filter(card => card.list_id === listData.list_id)
+            .map((card, i) => <Card key={i} cardId={card.card_id}/>);
         
         return(
            
@@ -128,7 +120,7 @@ class List extends Component {
                     </div>
 
                 }
-                { cards }
+                { cardComponents }
                 <div onClick={() => this.addCard()} className = 'cardBody addCard'>
                     + Add Another Card
                 </div>
@@ -140,10 +132,12 @@ class List extends Component {
 }
 
 function mapStateToProps(state){
-    let { displayModal } = state;
+    let { displayModal, cardsData, lists } = state;
     return {
-        displayModal
+        displayModal,
+        cardsData,
+        lists
     }
 }
 
-export default connect(mapStateToProps, { changeDisplayModal, changeModalData })(List);
+export default connect(mapStateToProps, { changeDisplayModal, changeModalData, updateCards, updateLists })(List);

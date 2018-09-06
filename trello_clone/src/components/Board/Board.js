@@ -5,7 +5,7 @@ import './Board.css';
 import '../Modal/Modal.css';
 import { CancelIcon } from '../Icons/Icons';
 import { connect } from 'react-redux';
-import { setBoardId, updateBoardName } from '../../ducks/reducer';
+import { updateBoardId, updateBoardName, updateLists, updateCards, getCards } from '../../ducks/reducer';
 //import { Link } from 'react-router-dom';
 
 
@@ -16,7 +16,6 @@ class Board extends Component {
         this.state = {
             addNewList: false,
             newListTitle: '',
-            listsData: [],
             editingBoardName: false,
             color: '',
             previousName: ''
@@ -31,31 +30,38 @@ class Board extends Component {
             .then( response => {
                 let { color, board_id, board_name } = response.data[0];
                 this.setState({ color: color });
-                this.props.setBoardId(board_id);
+                this.props.updateBoardId(board_id);
                 this.props.updateBoardName(board_name);
             })
             .catch( err => err.message );
         
         // get listData
-        this.getListData();
+        this.getLists();
+        this.getCards();
+        // this.props.getCards(id);
     }
 
-    getListData(){
+    getLists(){
         let { id } = this.props.match.params;
-        Axios.get(`/api/lists/`)
+        Axios.get(`/api/lists/byBoard/${id}`)
             .then( response => {
-                let lists = response.data.filter(list => list.board_id === parseInt(id));
-                this.setState({ listsData: lists });
+                this.props.updateLists( response.data );
+            })
+            .catch( err => err.message );
+    }
+    getCards(){
+        let { id } = this.props.match.params;
+        Axios.get(`/api/cardbyboard/${id}`)
+            .then(response => {
+                this.props.updateCards(response.data);
             })
             .catch( err => err.message );
     }
 
     addList(title){
-        console.log(title);
         Axios.post('/api/lists', { list_name: title, board_id: this.props.board_id })
             .then(response => {
-                console.log(response.data);
-                this.getListData();
+                this.getLists();
             })
             .catch(err => console.log(err.message));
         this.setState({ newListTitle: '', addNewList: false });
@@ -79,10 +85,10 @@ class Board extends Component {
     }
 
     render(){
-        let { board_name } = this.props;
-        let { listsData, color, addNewList, editingBoardName } = this.state;
+        let { board_name, lists } = this.props;
+        let { color, addNewList, editingBoardName } = this.state;
 
-        let lists = listsData.map((list, i) => {
+        let listComponents = lists.map((list, i) => {
             return <List key={i} listId={list.list_id} />
         })
         
@@ -106,7 +112,7 @@ class Board extends Component {
                 }
                 </div>
                 <div className='listsContainer'>
-                     { lists }
+                     { listComponents }
                 {
                     (!addNewList)
                     ?
@@ -128,11 +134,14 @@ class Board extends Component {
 }
 
 function mapStateToProps(state){
-    let { board_id, board_name, user_id } = state;
+    let { board_id, board_name, user_id, cards, lists } = state;
     return {
         board_id,
-        board_name
+        board_name,
+        cards,
+        lists,
+        user_id
     }
 }
 
-export default connect(mapStateToProps, { setBoardId, updateBoardName })(Board);
+export default connect(mapStateToProps, { updateBoardId, updateBoardName, updateLists, updateCards, getCards })(Board);
