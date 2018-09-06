@@ -6,8 +6,6 @@ import { initializeUser } from '../../ducks/reducer';
 import './Home.css';
 import { PersonIcon } from '../Icons/Icons';
 
-const DUMMY_USER_ID = 1;
-
 class Home extends Component {
   constructor(props) {
     super(props);
