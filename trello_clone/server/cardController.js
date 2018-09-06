@@ -17,6 +17,15 @@ module.exports = {
       })
       .catch( err => console.log(err.messsage));
   },
+  readCardByBoard: (req, res, next) => {
+    const db = req.app.get('db')
+    let { id } = req.params
+    db.get_cards_by_board([id])
+    .then(cards => {
+      res.status(200).send(cards)
+    })
+    .catch( err => console.log(err.message))
+  },
   createCard: (req, res, next) => {
     const db = req.app.get('db');
     let { card_title, description, list_id } = req.body;
