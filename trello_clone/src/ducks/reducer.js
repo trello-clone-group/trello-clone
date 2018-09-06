@@ -7,6 +7,8 @@ let initialState = {
   lastName: "",
   username: "",
   board_id: null,
+  board_name: '',
+  color: '',
   lists: [],
   cards: {isFetching: true, error: null, data:[]},
   displayModal: false,
@@ -31,7 +33,8 @@ const LOGOUT = "LOGOUT",
       UPDATE_CARD_ORDER = "UPDATE_CARD_ORDER",
       GET_CARDS_REQUEST = "GET_CARDS_REQUEST",
       GET_CARDS_FAILURE = "GET_CARDS_FAILURE",
-      GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS";
+      GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS",
+      UPDATE_BOARD_NAME = "UPDATE_BOARD_NAME";
 
 
 export default function reducer(state = initialState, action) {
@@ -72,6 +75,8 @@ export default function reducer(state = initialState, action) {
               return {...state, cards: {isFetching: action.isFetching, error: action.error }}
          case GET_CARDS_SUCCESS:
               return {...state, cards: {isFetching: action.isFetching, error: action.error, }}
+    case UPDATE_BOARD_NAME:
+      return { ...state, board_name: payload }
     default:
       return state;
   }
@@ -165,4 +170,11 @@ export function updateCardOrder(oldI, newI, listId){
     type: UPDATE_CARD_ORDER,
     payload: { oldI, newI, listId }
   }
+}
+
+export function updateBoardName(name){
+  return {
+    type: UPDATE_BOARD_NAME,
+    payload: name
+  };
 }
