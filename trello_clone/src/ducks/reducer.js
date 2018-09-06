@@ -3,22 +3,25 @@ import axios from 'axios'
 ///// INITIAL STATE /////
 let initialState = {
   user_id: null,
-  firstName: '',
-  lastName: '',
-  username: '',
+  firstName: "",
+  lastName: "",
+  username: "",
   board_id: null,
   lists: [],
   cards: {isFetching: true, error: null, data:[]},
   displayModal: false,
   modalData: {
     card_id: null,
-    card_title: '',
-    description: '',
+    card_title: "",
+    description: "",
     list_id: null
   }
-}
+};
 
-const SET_BOARD_ID = "SET_BOARD_ID",
+
+const LOGOUT = "LOGOUT",
+      CHANGE_BOARD_COLOR = "CHANGE_BOARD_COLOR",
+      SET_BOARD_ID = "SET_BOARD_ID",
       CHANGE_DISPLAY_MODAL = "CHANGE_DISPLAY_MODAL",
       CHANGE_MODAL_DATA = "CHANGE_MODAL_DATA",
       INITIALIZE_USER = "INITIALIZE_USER",
@@ -30,9 +33,10 @@ const SET_BOARD_ID = "SET_BOARD_ID",
       GET_CARDS_FAILURE = "GET_CARDS_FAILURE",
       GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS";
 
+
 export default function reducer(state = initialState, action) {
   let { type, payload } = action;
-  switch( type ){
+  switch (type) {
     case SET_BOARD_ID:
       return { ...state, board_id: payload }; // untested
     case CHANGE_DISPLAY_MODAL:
@@ -40,6 +44,11 @@ export default function reducer(state = initialState, action) {
     case CHANGE_MODAL_DATA:
       return Object.assign({}, state, { modalData: action.payload });
     case INITIALIZE_USER:
+      return { ...state, ...payload };
+
+    case LOGOUT:
+      return initialState;
+    case CHANGE_BOARD_COLOR:
       return { ...state, ...payload };
     case UPDATE_LISTS:
       return { ...state, lists: payload }
@@ -68,6 +77,7 @@ export default function reducer(state = initialState, action) {
   }
 }
 
+
 export function getCards(board_id) {
   return function(dispatch){
     dispatch({type: GET_CARDS_REQUEST, isFetching: true, error: null})
@@ -86,28 +96,47 @@ export function setBoardId(id){ // untested
   return {
     type: SET_BOARD_ID,
     payload: id
-  }
+  };
 }
+
 
 export function changeDisplayModal(bool){
   return {
     type: CHANGE_DISPLAY_MODAL,
     payload: bool
-  }
+  };
 }
+
+
+
 
 export function changeModalData(data){
   return {
     type: CHANGE_MODAL_DATA,
     payload: data
-  }
+  };
 }
 
 export function initializeUser(userData){
   return {
     type: INITIALIZE_USER,
     payload: userData
-  }
+  };
+}
+
+// Phil's Action Creators
+// should be used in header component
+export function logout() {
+  return {
+    type: LOGOUT
+  };
+}
+
+export function changeBoardColor(color) {
+  return {
+    type: CHANGE_BOARD_COLOR,
+    payload: color
+  };
 }
 
 export function updateLists(lists){
