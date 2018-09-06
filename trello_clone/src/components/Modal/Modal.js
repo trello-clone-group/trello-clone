@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import './Modal.css';
-import { TitleIcon, DescrIcon } from '../Icons/Icons';
+import { TitleIcon, DescrIcon, CancelIcon } from '../Icons/Icons';
 import { connect } from 'react-redux';
 import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
 
@@ -170,10 +170,14 @@ class Modal extends Component {
           </div>
 
           <div className="modal__right">
-            <div onClick={ () => this.close() }  className="modal__exit">
+            {/* <div onClick={ () => this.close() }  className="modal__exit">
               <div className="modal__one modal__long modal__line"></div>
               <div className="modal__two modal__long modal__line"></div>
+            </div>*/}
+            <div onClick={() => this.close() }>
+              <CancelIcon/>
             </div>
+            
             <button onClick={() => this.newCard(card_title, description, list_id)} className="modal__save-btn modal__btn" >New Card</button>
             <button onClick={ () => this.delete() } className="modal__btn">Delete Card</button>
           </div>

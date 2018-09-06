@@ -83,7 +83,7 @@ p {
   display: flex;
 }
 
-.modal__title-icon, .modal__descr-icon {
+.title-icon, .descr-icon {
   margin: 7px;
 }
 
@@ -133,28 +133,6 @@ textarea {
 }
 .modal__save-btn:hover {
   background-color: rgb(11, 209, 11);
-}
-
-.modal__exit {
-  height: 30px;
-  width: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.modal__exit:hover {
-  filter: brightness(70%);
-}
-
-.modal__one {
-  margin: -2px;
-  transform: rotate(45deg);
-}
-
-.modal__two {
-  transform: rotate(-45deg);
 }
 
 .modal__text-btn {

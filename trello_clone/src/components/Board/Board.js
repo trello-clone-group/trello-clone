@@ -1,13 +1,15 @@
 import React,  { Component } from 'react';
 import List from '../List/List'
 import Axios from 'axios';
-import './Board.css'
+import './Board.css';
+import '../Modal/Modal.css';
+import { CancelIcon } from '../Icons/Icons';
+import { connect } from 'react-redux';
+import { setBoardId, updateBoardName } from '../../ducks/reducer';
 //import { Link } from 'react-router-dom';
 
-//import { connect } from 'react-redux'
 
-
-export default class Board extends Component {
+class Board extends Component {
     constructor(props){
         super(props);
 
@@ -15,12 +17,9 @@ export default class Board extends Component {
             addNewList: false,
             newListTitle: '',
             listsData: [],
-            boardData: {
-                board_id: null,
-                board_name: '',
-                user_id: null,
-                color: ''
-            }
+            editingBoardName: false,
+            color: '',
+            previousName: ''
         }
     }
     
@@ -30,7 +29,10 @@ export default class Board extends Component {
         // get boardData
         Axios.get(`/api/board/${ id }`)
             .then( response => {
-                this.setState({ boardData: response.data[0] });
+                let { color, board_id, board_name } = response.data[0];
+                this.setState({ color: color });
+                this.props.setBoardId(board_id);
+                this.props.updateBoardName(board_name);
             })
             .catch( err => err.message );
         
@@ -50,7 +52,7 @@ export default class Board extends Component {
 
     addList(title){
         console.log(title);
-        Axios.post('/api/lists', { list_name: title, board_id: this.state.boardData.board_id })
+        Axios.post('/api/lists', { list_name: title, board_id: this.props.board_id })
             .then(response => {
                 console.log(response.data);
                 this.getListData();
@@ -59,10 +61,26 @@ export default class Board extends Component {
         this.setState({ newListTitle: '', addNewList: false });
     }
 
-    render(){
+    editBoardName(){
+        this.setState({ editingBoardName: true, previousName: this.props.board_name });
+    }
 
-        let { listsData, boardData, addNewList } = this.state;
-        let { board_name, color, board_id } = boardData;
+    saveBoardName(){
+        let { board_id, board_name } = this.props;
+        Axios.put(`/api/board/${board_id}`, { board_name })
+            .then(response => console.log(response.data))
+            .catch(err => console.log(err.message));
+        this.setState({ editingBoardName: false });
+    }
+
+    cancelEdit(){
+        this.setState({ editingBoardName: false, previousName: '' });
+        this.props.updateBoardName(this.state.previousName);
+    }
+
+    render(){
+        let { board_name } = this.props;
+        let { listsData, color, addNewList, editingBoardName } = this.state;
 
         let lists = listsData.map((list, i) => {
             return <List key={i} listId={list.list_id} />
@@ -72,7 +90,20 @@ export default class Board extends Component {
              
             <div className='boardBackground' style={{backgroundColor: color}}>
                 <div className='boardSubHeader' style={{backgroundColor: color}}>
-                <h2 className='boardTitle'>{board_name}</h2>
+                {
+                    (!editingBoardName)
+                    ?
+                    <h2 className='boardTitle' onClick={() => this.editBoardName()} >{board_name}</h2>
+                    :
+                    <div className="edit-board-name">
+                        <input type="text" value={board_name} onChange={e => this.props.updateBoardName(e.target.value)} />
+                        <button onClick={() => this.saveBoardName()}>Save</button>
+                        <div  onClick={() => this.cancelEdit()}>
+                            <CancelIcon/>
+                        </div>
+                    </div>
+
+                }
                 </div>
                 <div className='listsContainer'>
                      { lists }
@@ -96,5 +127,12 @@ export default class Board extends Component {
     }
 }
 
+function mapStateToProps(state){
+    let { board_id, board_name, user_id } = state;
+    return {
+        board_id,
+        board_name
+    }
+}
 
- 
+export default connect(mapStateToProps, { setBoardId, updateBoardName })(Board);
