@@ -10,20 +10,26 @@ let initialState = {
   board_name: '',
   color: '',
   lists: [],
-  cards: {isFetching: true, error: null, data:[]},
+  cards: {
+    isFetching: true,
+    error: null,
+    data: []
+  },
+  cardsData: [],
   displayModal: false,
   modalData: {
     card_id: null,
     card_title: "",
     description: "",
-    list_id: null
+    list_id: null,
+    list_title
   }
 };
 
 
 const LOGOUT = "LOGOUT",
       CHANGE_BOARD_COLOR = "CHANGE_BOARD_COLOR",
-      SET_BOARD_ID = "SET_BOARD_ID",
+      UPDATE_BOARD_ID = "UPDATE_BOARD_ID",
       CHANGE_DISPLAY_MODAL = "CHANGE_DISPLAY_MODAL",
       CHANGE_MODAL_DATA = "CHANGE_MODAL_DATA",
       INITIALIZE_USER = "INITIALIZE_USER",
@@ -40,7 +46,7 @@ const LOGOUT = "LOGOUT",
 export default function reducer(state = initialState, action) {
   let { type, payload } = action;
   switch (type) {
-    case SET_BOARD_ID:
+    case UPDATE_BOARD_ID:
       return { ...state, board_id: payload }; // untested
     case CHANGE_DISPLAY_MODAL:
       return Object.assign({}, state, { displayModal: action.payload });
@@ -62,7 +68,7 @@ export default function reducer(state = initialState, action) {
       newLists.splice(newIndex, 0, list);
       return { ...state, lists: newLists };
     case UPDATE_CARDS:
-      return { ...state, cards: payload };
+      return { ...state, cardsData: payload };
     case UPDATE_CARD_ORDER:
       let { oldI, newI, listId } = payload;
       let newCards = [...state.cards];
@@ -71,7 +77,7 @@ export default function reducer(state = initialState, action) {
       newCards.splice(newI, 0, card);
       return { ...state, cards: newCards };
     case GET_CARDS_REQUEST:
-         case GET_CARDS_FAILURE: 
+         case GET_CARDS_FAILURE:
               return {...state, cards: {isFetching: action.isFetching, error: action.error }}
          case GET_CARDS_SUCCESS:
               return {...state, cards: {isFetching: action.isFetching, error: action.error, }}
@@ -97,9 +103,9 @@ export function getCards(board_id) {
   }
 }
 
-export function setBoardId(id){ // untested
+export function updateBoardId(id){ // untested
   return {
-    type: SET_BOARD_ID,
+    type: UPDATE_BOARD_ID,
     payload: id
   };
 }

@@ -32,7 +32,7 @@ p {
 .modal__modal-screen {
   height: 100vh;
   width: 100vw;
-  Background-color: rgba(0, 0, 0, 0.400);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0px;
 }
@@ -81,6 +81,10 @@ p {
 
 .modal__title-input {
   display: flex;
+}
+.modal__title-input > input {
+  font-size: 20px;
+  letter-spacing: 1px;
 }
 
 .title-icon, .descr-icon {
@@ -138,7 +142,6 @@ textarea {
 .modal__text-btn {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
-  font-weight: bold;
   color: rgb(117, 117, 117);
   cursor: pointer;
 }

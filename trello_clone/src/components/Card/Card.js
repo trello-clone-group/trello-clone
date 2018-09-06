@@ -3,8 +3,6 @@ import Axios from 'axios';
 import './Card.css';
 import { connect } from 'react-redux';
 import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
-//import { Link } from 'react-router-dom';
-
 //import { connect } from 'react-redux'
 
 
@@ -23,17 +21,17 @@ class Card extends Component {
     }
 
     componentDidMount(){
-        let { cardId } = this.props;
-
-        Axios.get(`/api/card/${cardId}`)
-            .then( response => {
-                this.setState({ cardData: response.data[0] });
-            })
-            .catch( err => console.log(err.message));
+        let { cardsData, cardId } = this.props;
+        let cardData = cardsData.find(card => card.card_id === cardId);
+        this.setState({ cardData: cardData });
     }
 
     displayModal(){
-        this.props.changeModalData( this.state.cardData );
+        let { cardData } = this.state;
+        let listData = this.props.lists.find(list => list.list_id === cardData.list_id);
+        console.log(listData.list_name);
+        cardData.list_title = listData.list_name;
+        this.props.changeModalData( cardData );
         this.props.changeDisplayModal( true );
     }
 
@@ -52,9 +50,11 @@ class Card extends Component {
 }
 
 function mapStateToProps(state){
-    let { displayModal } = state;
+    let { displayModal, cardsData, lists } = state;
     return {
-        displayModal
+        displayModal,
+        cardsData,
+        lists
     };
 }
 

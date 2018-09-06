@@ -6,12 +6,18 @@
     margin-top: 10px;
     border-radius: 4px;
     box-shadow: 0 1px 0.5px 0px  rgb(126, 126, 126);
+    cursor: pointer;
+}
+.cardBody:hover{
+    background-color: rgba(255, 255, 255, 0.548);
 }
 
 .addCard{
     opacity: .3;
+    cursor: pointer;
 }
 
 .addCard:hover{
     opacity: 1;
+    background-color: rgba(148, 148, 148, 0.123);
 }

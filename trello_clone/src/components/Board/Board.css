@@ -1,3 +1,4 @@
+
 .boardBackground {
     background-color: #298FCA;
     height: 100vh;
@@ -42,4 +43,9 @@
 .edit-board-name {
     margin: 20px;
     display: flex;
+}
+.edit-board-name > input {
+    font-size: 18px;
+    letter-spacing: 1px;
+    width: 30%;
 }
