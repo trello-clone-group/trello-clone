@@ -4,7 +4,7 @@ import Card from '../Card/Card';
 import './List.css';
 import { connect } from 'react-redux';
 import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
-import { CancelIcon } from '../Icons/Icons';
+import { CancelIcon, SettingsIcon } from '../Icons/Icons';
 //import { Link } from 'react-router-dom';
 
 class List extends Component {
@@ -17,6 +17,7 @@ class List extends Component {
                 list_name: '',
                 board_id: null
             },
+            displayDelete: false,
             editingListTitle: false,
             previousListTitle: '',
             cardsData: []
@@ -83,8 +84,17 @@ class List extends Component {
         this.setState({ listData: newData });
     }
 
+    deleteList(){
+        let { list_id } = this.state.listData;
+        Axios.delete(`/api/lists/${list_id}`)
+            .then(response => {
+                this.setState({ displayDelete: false });
+            })
+            .catch(err => console.log(err.message));
+    }
+
     render(){
-        let { listData, cardsData, editingListTitle } = this.state;
+        let { listData, cardsData, editingListTitle, displayDelete } = this.state;
         let { list_name } = listData;
 
         let cards = cardsData.map((card, i) => <Card key={i} cardId={card.card_id}/>);
@@ -95,7 +105,19 @@ class List extends Component {
                 {
                     (!editingListTitle)
                     ?
-                    <h3 onClick={() => this.editName()} className="listTitle">{list_name}</h3>
+                    <div className="list-header">
+                        <h3 onClick={() => this.editName()} className="listTitle">{list_name}</h3>
+                        {
+                            (!displayDelete)
+                            ?
+                            <div onClick={() => this.setState({displayDelete: true})}><SettingsIcon/></div>
+                            :
+                            <div className="edit-list-name">
+                                <button onClick={() => this.deleteList()} >Delete</button>
+                                <div onClick={() => this.setState({ displayDelete:false })} ><CancelIcon/></div>
+                            </div>
+                        }
+                    </div>
                     :
                     <div className="edit-list-name">
                         <input type="text" value={list_name} onChange={e => this.handleChange(e.target.value)}/>
