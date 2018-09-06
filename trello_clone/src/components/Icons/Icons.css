@@ -39,7 +39,7 @@ TITLE ICON
   background-color: #EDEFF0;
   height: 2px;
   width: 2px;
-  border-radius: 1px;
+  border-radius: 50%;
 }
 
 
@@ -129,4 +129,24 @@ PERSON ICON
 
 .cancel-icon > .two {
   transform: rotate(-45deg);
+}
+
+/***********
+* CancelIcon
+***********/
+.settings-icon {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
+.settings-icon:hover {
+  filter: brightness(70%);
+}
+
+.settings-icon > .dot {
+  background-color: gray;
+  height: 4px;
+  width: 4px;
+  margin: 1px;
 }

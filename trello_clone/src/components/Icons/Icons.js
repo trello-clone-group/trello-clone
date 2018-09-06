@@ -41,3 +41,13 @@ export function CancelIcon(){
     </div>
   );
 }
+
+export function SettingsIcon(){
+  return (
+    <div className="icon settings-icon">
+      <div className="dot"></div>
+      <div className="dot"></div>
+      <div className="dot"></div>
+    </div>
+  );
+}

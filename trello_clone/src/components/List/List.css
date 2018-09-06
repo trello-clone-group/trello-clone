@@ -8,6 +8,13 @@
     vertical-align: top;
     border-radius: 4px;
 }
+
+.list-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .listTitle{
     font-weight: bold;
     font-size: 15px;
