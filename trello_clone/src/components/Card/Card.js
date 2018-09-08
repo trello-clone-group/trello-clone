@@ -29,7 +29,6 @@ class Card extends Component {
     displayModal(){
         let { cardData } = this.state;
         let listData = this.props.lists.find(list => list.list_id === cardData.list_id);
-        console.log(listData.list_name);
         cardData.list_title = listData.list_name;
         this.props.changeModalData( cardData );
         this.props.changeDisplayModal( true );

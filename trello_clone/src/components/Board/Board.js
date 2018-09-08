@@ -84,6 +84,10 @@ class Board extends Component {
         this.props.updateBoardName(this.state.previousName);
     }
 
+    cancelNewList(){
+        this.setState({ addNewList: false });
+    }
+
     render(){
         let { board_name, lists } = this.props;
         let { color, addNewList, editingBoardName } = this.state;
@@ -103,7 +107,7 @@ class Board extends Component {
                     :
                     <div className="edit-board-name">
                         <input type="text" value={board_name} onChange={e => this.props.updateBoardName(e.target.value)} />
-                        <button onClick={() => this.saveBoardName()}>Save</button>
+                        <button className="btn-save" onClick={() => this.saveBoardName()}>Save</button>
                         <div  onClick={() => this.cancelEdit()}>
                             <CancelIcon/>
                         </div>
@@ -120,9 +124,14 @@ class Board extends Component {
                         + Add Another List 
                     </div>
                     :
-                    <div>
+                    <div className="new-list-modal">
                         <input onChange={ e => this.setState({ newListTitle: e.target.value }) } type="text" placeholder="list title"/>
-                        <button onClick={() => this.addList(this.state.newListTitle)} >Add List</button>
+                        <div className="btn-box">
+                            <button className="btn-save" onClick={() => this.addList(this.state.newListTitle)} >Add List</button>
+                            <div onClick={() => {this.cancelNewList()}}>
+                                <CancelIcon />
+                            </div>
+                        </div>
                     </div>
                 }
                 
