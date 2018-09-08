@@ -2,7 +2,6 @@
   background: rgba(0, 0, 0, 0.25);
   height: 32px;
   position: fixed;
-  overflow: hidden;
   padding: 4px;
   z-index: 10;
   display: flex;
@@ -11,9 +10,13 @@
   right: 0;
 }
 
-.header button {
+.header__create-board-btn,
+.header__logout-btn {
   background: hsla(0, 0%, 100%, 0.3);
   border-radius: 3px;
+  margin: 0 5px;
+  padding: 0 10px;
+  border: none;
 }
 
 .header__home-btn {
@@ -35,7 +38,7 @@
   width: auto;
 }
 
-.header__boards-btn {
+.header__boards-btn .header__logout-btn {
   border: none;
   background: 0;
   color: #fff;
@@ -48,11 +51,8 @@
   color: #fff;
 }
 
-.header__create-board-btn {
-  margin: 0 5px;
-  padding: 0 10px;
-  border: none;
-  background: 0;
+.header__trello-logo {
+  height: 32px;
 }
 
 .header__create-board-btn > a {
@@ -84,4 +84,14 @@
 .header__current-user a {
   font-size: 0.8rem;
   font-weight: 600;
+}
+
+.header__logout-btn a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.header a:hover,
+.header button:hover {
+  filter: brightness(50%);
 }
