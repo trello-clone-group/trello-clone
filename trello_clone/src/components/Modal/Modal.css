@@ -32,7 +32,7 @@ p {
 .modal__modal-screen {
   height: 100vh;
   width: 100vw;
-  Background-color: rgba(0, 0, 0, 0.400);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0px;
 }
@@ -82,8 +82,12 @@ p {
 .modal__title-input {
   display: flex;
 }
+.modal__title-input > input {
+  font-size: 20px;
+  letter-spacing: 1px;
+}
 
-.modal__title-icon, .modal__descr-icon {
+.title-icon, .descr-icon {
   margin: 7px;
 }
 
@@ -135,32 +139,9 @@ textarea {
   background-color: rgb(11, 209, 11);
 }
 
-.modal__exit {
-  height: 30px;
-  width: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.modal__exit:hover {
-  filter: brightness(70%);
-}
-
-.modal__one {
-  margin: -2px;
-  transform: rotate(45deg);
-}
-
-.modal__two {
-  transform: rotate(-45deg);
-}
-
 .modal__text-btn {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
-  font-weight: bold;
   color: rgb(117, 117, 117);
   cursor: pointer;
 }

@@ -1,4 +1,4 @@
-.modal__icon {
+.icon {
   height: 18px;
   width: 20px;
 }
@@ -6,14 +6,14 @@
 /*********
 TITLE ICON
 **********/
-.modal__title-icon {
+.title-icon {
   background-color: darkGray;
   border-radius: 3px;
   display: flex;
   flex-direction: column;
 }
 
-.modal__screen {
+.icon .screen {
   background-color: #EDEFF0;
   margin: 2px;
   height: 9px;
@@ -21,13 +21,13 @@ TITLE ICON
   border-radius: 2px;
 }
 
-.modal__bottom {
+.icon .bottom {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.modal__seg {
+.icon .seg {
   background-color: #EDEFF0;
   height: 2px;
   width: 12px;
@@ -35,18 +35,18 @@ TITLE ICON
   margin-right: 2px;
 }
 
-.modal__dot {
+.icon .dot {
   background-color: #EDEFF0;
   height: 2px;
   width: 2px;
-  border-radius: 1px;
+  border-radius: 50%;
 }
 
 
 /***************
 DESCRIPTION ICON
 ****************/
-.modal__descr-icon {
+.descr-icon {
   background-color: #EDEFF0;
   display: flex;
   flex-direction: column;
@@ -54,17 +54,17 @@ DESCRIPTION ICON
   align-items: flex-start;
 }
 
-.modal__line {
+.icon .line {
   background-color: darkgray;
   height: 2px;
   border-radius: 1px;
 }
 
-.modal__long {
+.icon .long {
   width: 20px;
 }
 
-.modal__short {
+.icon .short {
   width: 12px;
 }
 
@@ -72,11 +72,11 @@ DESCRIPTION ICON
 /**********
 PERSON ICON
 ***********/
-.modal__person-icon {
+.person-icon {
   background-color: white;
 }
 
-.modal__head {
+.icon .head {
   background-color: white;
   height: 4px;
   width: 4px;
@@ -85,7 +85,7 @@ PERSON ICON
   border: 2px solid darkgray;
 }
 
-.modal__body {
+.icon .body {
   background-color: white;
   height: 8px;
   width: 8px;
@@ -95,7 +95,7 @@ PERSON ICON
   border: 2px solid darkgray;
 }
 
-.modal__body::after {
+.icon .body::after {
   content: "";
   display: block;
   margin-top: 4px;
@@ -104,4 +104,49 @@ PERSON ICON
   height: 4px;
   width: 12px;
   border-top: 2px solid darkgray;
+}
+
+/***********
+* CancelIcon
+***********/
+.cancel-icon {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.cancel-icon:hover {
+  filter: brightness(70%);
+}
+
+.cancel-icon > .one {
+  margin: -2px;
+  transform: rotate(45deg);
+}
+
+.cancel-icon > .two {
+  transform: rotate(-45deg);
+}
+
+/***********
+* CancelIcon
+***********/
+.settings-icon {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
+.settings-icon:hover {
+  filter: brightness(70%);
+}
+
+.settings-icon > .dot {
+  background-color: gray;
+  height: 4px;
+  width: 4px;
+  margin: 1px;
 }

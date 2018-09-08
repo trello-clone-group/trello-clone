@@ -8,9 +8,22 @@
     vertical-align: top;
     border-radius: 4px;
 }
+
+.list-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .listTitle{
     font-weight: bold;
     font-size: 15px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+}
+.listTitle:hover{
+    background-color: rgba(109, 109, 109, 0.336);
 }
 .newList{
     opacity: .3;
@@ -18,4 +31,8 @@
 
 .newList:hover{
     opacity: 1;
+}
+
+.edit-list-name {
+    display: flex;
 }

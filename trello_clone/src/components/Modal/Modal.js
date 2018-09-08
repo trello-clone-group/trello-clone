@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import './Modal.css';
-import { TitleIcon, DescrIcon } from '../Icons/Icons';
+import { TitleIcon, DescrIcon, CancelIcon } from '../Icons/Icons';
 import { connect } from 'react-redux';
 import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
 
@@ -17,21 +17,6 @@ class Modal extends Component {
 
     this.edit = this.edit.bind(this);
     this.save = this.save.bind(this);
-  }
-
-  componentDidMount(){
-    // TODO: componentDidMount only fires once. I have to figure out how to pass the list_title down to modal
-
-    // let { list_id } = this.props.modalData;
-    // if (!list_id) {
-    //   return;
-    // }
-    // Axios.get('/api/lists')
-    //   .then(response => {
-    //     console.log(response.data);
-    //     let listTitle = response.data.filter(item => item.list_id ==)
-    //   })
-    //   .catch(err => console.log(err.message));
   }
 
   handleTitleChange(val) {
@@ -107,8 +92,10 @@ class Modal extends Component {
 
     let { editDescription, editTitle } = this.state;
     let { displayModal, modalData } = this.props;
-    let { card_id, card_title, description, list_id } = modalData;
-    let list_title = "CHANGE_ME";
+    let { card_id, card_title, description, list_id, list_title } = modalData;
+    if (!card_title){
+      editTitle = true;
+    }
     
     return (
       (!displayModal)
@@ -123,7 +110,7 @@ class Modal extends Component {
               <TitleIcon />
               <div className="modal__little-box">
                 {
-                  (editTitle || !card_title)
+                  (editTitle)
                   ?
                   <div className="modal__title-input">
                     <input type="text" value={card_title} onChange={ e => this.handleTitleChange(e.target.value) }/>
@@ -132,7 +119,7 @@ class Modal extends Component {
                   :
                   <h1 onClick={ () => this.edit('editTitle') }>{card_title}</h1>
                 }
-                <p className="modal__text-btn">in list {list_title}</p>
+                <p className="modal__text-btn">in list <strong>{list_title}</strong></p>
               </div>
             </div>
             
@@ -170,10 +157,14 @@ class Modal extends Component {
           </div>
 
           <div className="modal__right">
-            <div onClick={ () => this.close() }  className="modal__exit">
+            {/* <div onClick={ () => this.close() }  className="modal__exit">
               <div className="modal__one modal__long modal__line"></div>
               <div className="modal__two modal__long modal__line"></div>
+            </div>*/}
+            <div onClick={() => this.close() }>
+              <CancelIcon/>
             </div>
+            
             <button onClick={() => this.newCard(card_title, description, list_id)} className="modal__save-btn modal__btn" >New Card</button>
             <button onClick={ () => this.delete() } className="modal__btn">Delete Card</button>
           </div>

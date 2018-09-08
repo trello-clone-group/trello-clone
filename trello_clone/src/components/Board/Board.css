@@ -1,3 +1,4 @@
+
 .boardBackground {
     background-color: #298FCA;
     height: 100vh;
@@ -15,7 +16,7 @@
 }
 
 .listsContainer{
-    padding-top: 32px;
+    margin-top: 32px;
     display: block;
     overflow-x: auto;
     overflow-y: hidden;
@@ -26,8 +27,25 @@
     left: 0;
 }
 
-.boardTitle{
+.boardTitle {
     float: left;
     color: white;
+    margin-top: 20px;
+    margin-left: 10px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 3px;
+}
+.boardTitle:hover {
+    background-color: rgba(44, 44, 44, 0.445);
+    cursor: pointer;
+}
+
+.edit-board-name {
     margin: 20px;
+    display: flex;
+}
+.edit-board-name > input {
+    font-size: 18px;
+    letter-spacing: 1px;
+    width: 30%;
 }
