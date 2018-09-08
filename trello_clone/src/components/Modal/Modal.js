@@ -3,7 +3,7 @@ import Axios from 'axios';
 import './Modal.css';
 import { TitleIcon, DescrIcon, CancelIcon } from '../Icons/Icons';
 import { connect } from 'react-redux';
-import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
+import { changeDisplayModal, changeModalData, updateCards } from '../../ducks/reducer';
 
 class Modal extends Component {
   constructor(props){
@@ -55,16 +55,6 @@ class Modal extends Component {
     this.setState( obj );
   }
 
-  newCard(card_title, description, list_id){
-    Axios.post('/api/card', { card_title, description, list_id })
-      .then(response => {
-        console.log(response.data);
-        
-      })
-      .catch(err => console.log(err.message));
-    this.props.changeDisplayModal(false);
-  }
-
   cancelEdit() {
     let desc = this.state.prevDescription;
     this.props.changeModalData( Object.assign({}, this.props.modalData, {description: desc }));
@@ -75,9 +65,15 @@ class Modal extends Component {
   }
 
   delete() {
-    let { card_id } = this.props.modalData;
+    let { board_id, modalData } = this.props;
+    let { card_id } = modalData;
+    console.log(board_id);
     Axios.delete(`/api/card/${card_id}`)
-      .then(response => console.log(response.data))
+      .then(response => {
+        Axios.get(`/api/cardbyboard/${board_id}`)
+          .then( response => this.props.updateCards(response.data) )
+          .catch( err => console.log(err.message));
+      })
       .catch( err => console.log(err.message) );
 
     this.props.changeDisplayModal(false);
@@ -142,7 +138,7 @@ class Modal extends Component {
                   ?
                   (
                     <div className="modal__editing">
-                      <button className="modal__save-btn modal__btn" onClick={ () => this.save('editDescription') }>Save Changes</button>
+                      <button className="btn-save" onClick={ () => this.save('editDescription') }>Save Changes</button>
                       <div className="modal__exit" onClick={ () => this.cancelEdit() }>
                         <div className="modal__one modal__short modal__line"></div>
                         <div className="modal__two modal__short modal__line"></div>
@@ -157,16 +153,11 @@ class Modal extends Component {
           </div>
 
           <div className="modal__right">
-            {/* <div onClick={ () => this.close() }  className="modal__exit">
-              <div className="modal__one modal__long modal__line"></div>
-              <div className="modal__two modal__long modal__line"></div>
-            </div>*/}
             <div onClick={() => this.close() }>
               <CancelIcon/>
             </div>
-            
-            <button onClick={() => this.newCard(card_title, description, list_id)} className="modal__save-btn modal__btn" >New Card</button>
-            <button onClick={ () => this.delete() } className="modal__btn">Delete Card</button>
+
+            <button onClick={ () => this.delete() } className="btn-delete">Delete Card</button>
           </div>
 
         </div>
@@ -176,11 +167,12 @@ class Modal extends Component {
 }
 
 function mapStateToProps(state){
-  let { displayModal, modalData } = state;
+  let { displayModal, modalData, board_id } = state;
   return {
     displayModal,
-    modalData
+    modalData,
+    board_id
   }
 }
 
-export default connect(mapStateToProps, { changeDisplayModal, changeModalData })(Modal);
+export default connect(mapStateToProps, { changeDisplayModal, changeModalData, updateCards })(Modal);

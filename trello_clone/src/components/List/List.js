@@ -16,6 +16,8 @@ class List extends Component {
                 list_name: '',
                 board_id: null
             },
+            newCardName: '',
+            addNewCard: false,
             displayDelete: false,
             editingListTitle: false,
             previousListTitle: '',
@@ -29,14 +31,21 @@ class List extends Component {
     }
 
     addCard(){
-        this.props.changeDisplayModal(true);
-        let data = {
-            list_id: this.props.listId,
-            title: '',
-            description: '',
-            list_title: this.state.listData.list_title
-        }
-        this.props.changeModalData( data );
+        let { newCardName, listData } = this.state;
+        let { list_id } = listData;
+        let { board_id } = this.props;
+        console.log('adding new card', newCardName);
+        Axios.post('/api/card/', {board_id, card_title: newCardName, list_id, description: ''})
+            .then(response => this.props.updateCards(response.data))
+            .catch(err => console.log(err.message));
+        this.cancelNewCard();
+    }
+
+    cancelNewCard(){
+        this.setState({
+            addNewCard: false,
+            newCardName: ''
+        });
     }
 
     editName(){
@@ -84,7 +93,7 @@ class List extends Component {
 
     render(){
         let { cardsData } = this.props;
-        let { listData, editingListTitle, displayDelete } = this.state;
+        let { listData, editingListTitle, displayDelete, addNewCard, newCardName } = this.state;
         let { list_name } = listData;
 
         let cardComponents = cardsData
@@ -105,7 +114,7 @@ class List extends Component {
                             <div onClick={() => this.setState({displayDelete: true})}><SettingsIcon/></div>
                             :
                             <div className="edit-list-name">
-                                <button onClick={() => this.deleteList()} >Delete</button>
+                                <button className="btn-delete"onClick={() => this.deleteList()} >Delete</button>
                                 <div onClick={() => this.setState({ displayDelete:false })} ><CancelIcon/></div>
                             </div>
                         }
@@ -113,7 +122,7 @@ class List extends Component {
                     :
                     <div className="edit-list-name">
                         <input type="text" value={list_name} onChange={e => this.handleChange(e.target.value)}/>
-                        <button onClick={() => this.saveListTitle()}>Save</button>
+                        <button className="btn-save" onClick={() => this.saveListTitle()}>Save</button>
                         <div onClick={() => this.cancelEdit()}>
                             <CancelIcon />
                         </div>
@@ -121,9 +130,23 @@ class List extends Component {
 
                 }
                 { cardComponents }
-                <div onClick={() => this.addCard()} className = 'cardBody addCard'>
-                    + Add Another Card
-                </div>
+                {
+                    (!addNewCard)
+                    ?
+                    <div onClick={() => this.setState({ addNewCard: true })} className = 'cardBody addCard'>
+                        + Add Another Card
+                    </div>
+                    :
+                    <div className="new-card-modal">
+                        <textarea onChange={e => this.setState({ newCardName: e.target.value })} value={newCardName} placeholder="Enter a title for this card..." />
+                        <div className="btn-box">
+                            <button className="btn-save" onClick={() => this.addCard()}>Save</button>
+                            <div onClick={() => this.cancelNewCard()}>
+                                <CancelIcon />
+                            </div>
+                        </div>
+                    </div>
+                }
                 </div>
     
              
@@ -132,11 +155,12 @@ class List extends Component {
 }
 
 function mapStateToProps(state){
-    let { displayModal, cardsData, lists } = state;
+    let { displayModal, cardsData, lists, board_id } = state;
     return {
         displayModal,
         cardsData,
-        lists
+        lists,
+        board_id
     }
 }
 

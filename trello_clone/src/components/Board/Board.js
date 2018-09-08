@@ -107,7 +107,7 @@ class Board extends Component {
                     :
                     <div className="edit-board-name">
                         <input type="text" value={board_name} onChange={e => this.props.updateBoardName(e.target.value)} />
-                        <button onClick={() => this.saveBoardName()}>Save</button>
+                        <button className="btn-save" onClick={() => this.saveBoardName()}>Save</button>
                         <div  onClick={() => this.cancelEdit()}>
                             <CancelIcon/>
                         </div>
@@ -127,7 +127,7 @@ class Board extends Component {
                     <div className="new-list-modal">
                         <input onChange={ e => this.setState({ newListTitle: e.target.value }) } type="text" placeholder="list title"/>
                         <div className="btn-box">
-                            <button onClick={() => this.addList(this.state.newListTitle)} >Add List</button>
+                            <button className="btn-save" onClick={() => this.addList(this.state.newListTitle)} >Add List</button>
                             <div onClick={() => {this.cancelNewList()}}>
                                 <CancelIcon />
                             </div>
