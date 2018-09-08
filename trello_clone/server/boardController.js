@@ -5,7 +5,8 @@ module.exports = {
     const db = req.app.get("db");
     const { board_name, user_id } = req.body;
     //const user_id = req.session.user_id;
-    db.createBoard([board_name, user_id])
+    const defaultBoardColor = "lightgray";
+    db.createBoard([board_name, user_id, defaultBoardColor])
       .then(board => {
         res.status(200).send(board);
       })
