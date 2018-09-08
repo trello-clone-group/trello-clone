@@ -22,7 +22,7 @@ let initialState = {
     card_title: "",
     description: "",
     list_id: null,
-    list_title
+    list_title: ""
   }
 };
 
