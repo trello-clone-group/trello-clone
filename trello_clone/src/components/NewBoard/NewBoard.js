@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+// Style Imports
 import "./NewBoard.css";
 
 class NewBoard extends Component {
@@ -19,9 +20,6 @@ class NewBoard extends Component {
   }
 
   render() {
-    let { board_name } = this.state;
-    let { user_id } = this.props;
-
     return (
       <div className="new-board">
         <p>Create New Board</p>
@@ -30,11 +28,11 @@ class NewBoard extends Component {
           type="text"
           placeholder="board title"
         />
-        <button onClick={() => this.props.saveNewBoard(board_name, user_id)}>
+        <button onClick={() => this.props.saveNewBoard(this.state.board_name, this.props.user_id)}>
           Create
         </button>
         <button onClick={() => this.props.cancelNewBoard()}>Cancel</button>
-      </div>
+      </div >
     );
   }
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 ///// INITIAL STATE /////
-let initialState = {
+const initialState = {
   user_id: null,
   first_name: "",
   last_name: "",
@@ -9,6 +9,7 @@ let initialState = {
   board_id: null,
   board_name: "",
   color: "",
+  boards: [],
   lists: [],
   cards: {
     isFetching: true,
@@ -39,9 +40,12 @@ const LOGOUT = "LOGOUT",
   GET_CARDS_REQUEST = "GET_CARDS_REQUEST",
   GET_CARDS_FAILURE = "GET_CARDS_FAILURE",
   GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS",
+  UPDATE_BOARDS = "UPDATE_BOARDS",
+  CREATE_BOARD = "CREATE_BOARD",
   UPDATE_BOARD_NAME = "UPDATE_BOARD_NAME";
 
 export default function reducer(state = initialState, action) {
+  console.log('reducer', action);
   let { type, payload } = action;
   switch (type) {
     case UPDATE_BOARD_ID:
@@ -86,13 +90,18 @@ export default function reducer(state = initialState, action) {
       };
     case UPDATE_BOARD_NAME:
       return { ...state, board_name: payload };
+    case UPDATE_BOARDS:
+      return { ...state, boards: payload };
+    case CREATE_BOARD:
+      let newBoards = [...state.boards, payload]
+      return { ...state, boards: newBoards };
     default:
       return state;
   }
 }
 
 export function getCards(board_id) {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch({ type: GET_CARDS_REQUEST, isFetching: true, error: null });
     axios
       .get(`http://localhost:3005/api/cardbyboard/${board_id}`)
@@ -185,4 +194,18 @@ export function updateBoardName(name) {
     type: UPDATE_BOARD_NAME,
     payload: name
   };
+}
+
+export function updateBoards(boards) {
+  return {
+    type: UPDATE_BOARDS,
+    payload: boards
+  }
+}
+
+export function createBoard(board) {
+  return {
+    type: CREATE_BOARD,
+    payload: board
+  }
 }

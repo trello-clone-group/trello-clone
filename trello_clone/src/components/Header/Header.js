@@ -1,56 +1,56 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import HomeIcon from "./Home_Icon.svg";
-import PlusIcon from "./Plus_Icon.svg";
 
+// Action Creator Imports
+import { createBoard, logout } from "../../ducks/reducer";
+
+// Component Imports
 import NewBoard from "../NewBoard/NewBoard";
 
-import { logout } from "./../../ducks/reducer";
-
-// Import Styles
+// Style Imports
 import "./Header.css";
+
+// Asset Imports
+import HomeIcon from "./Home_Icon.svg";
+import PlusIcon from "./Plus_Icon.svg";
 
 class Header extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      renderNewBoard: false
+      toggleNewBoardForm: false
     };
 
+    this.toggleNewBoardForm = this.toggleNewBoardForm.bind(this);
     this.cancelNewBoard = this.cancelNewBoard.bind(this);
     this.saveNewBoard = this.saveNewBoard.bind(this);
-    this.logoutHandler = this.logoutHandler.bind(this);
   }
 
-  // Add Create Board functionality
-  createBoard() {
-    this.setState({ renderNewBoard: true });
-  }
-
-  // Add Change Background Color Functionality
-  changeBackground() {
-    console.log("changing background");
+  toggleNewBoardForm() {
+    this.setState({ toggleNewBoardForm: !this.state.toggleNewBoardForm });
   }
 
   cancelNewBoard() {
-    this.setState({ renderNewBoard: false });
+    this.toggleNewBoardForm();
   }
 
   saveNewBoard(board_name, user_id) {
-    console.log("saving");
-    Axios.post("/api/board/new", { board_name, user_id });
-    this.setState({ renderNewBoard: false });
+    this.toggleNewBoardForm();
+    Axios.post("/api/board/new", { board_name, user_id }).then(response => {
+      console.log(response);
+      this.props.history.push('/dashboard');
+    });
   }
 
   logoutHandler() {
-    Axios.post("/api/logout").then(() => this.props.logout());
+    this.props.logout();
+    Axios.post("/api/logout");
   }
 
   render() {
-    let { renderNewBoard } = this.state;
-
     return (
       <header className="header">
         <Link to="/dashboard" className="header__home-btn">
@@ -58,13 +58,14 @@ class Header extends Component {
         </Link>
         <div className="header__logo">
           <img
+            alt="trello logo"
             className="header__trello-logo"
             src="https://d2k1ftgv7pobq7.cloudfront.net/meta/p/res/images/trello-header-logos/af7af6ed478d3460709d715d9b3f74a4/trello-logo-white.svg"
           />
         </div>
-        {!renderNewBoard ? (
+        {!this.state.toggleNewBoardForm ? (
           <button className="header__create-board-btn">
-            <a onClick={() => this.createBoard()}>
+            <a onClick={() => this.toggleNewBoardForm()}>
               <img
                 className="header__plus-icon"
                 alt="Plus Icon"
@@ -74,19 +75,17 @@ class Header extends Component {
             </a>
           </button>
         ) : (
-          <NewBoard
-            cancelNewBoard={this.cancelNewBoard}
-            saveNewBoard={this.saveNewBoard}
-          />
-        )}
+            <NewBoard
+              saveNewBoard={this.saveNewBoard}
+              cancelNewBoard={this.cancelNewBoard}
+            />
+          )}
         <button className="header__logout-btn">
-          <a href="/login" onClick={this.logoutHandler}>
-            Logout
-          </a>
+          <Link to="/" onClick={() => this.logoutHandler()}>Logout</Link>
         </button>
       </header>
     );
   }
 }
 
-export default Header;
+export default connect(null, { createBoard, logout })(Header);
