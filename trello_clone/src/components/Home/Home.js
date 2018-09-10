@@ -1,9 +1,15 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { initializeUser } from "../../ducks/reducer";
+
+// Action Creator Imports
+import { initializeUser, updateBoards } from "../../ducks/reducer";
+
+// Style Imports
 import "./Home.css";
+
+// Asset Imports
 import { PersonIcon } from "../Icons/Icons";
 
 class Home extends Component {
@@ -11,48 +17,52 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      boardsData: []
-    };
+      boards: null
+    }
+
+    this.getBoards = this.getBoards.bind(this);
   }
 
   componentDidMount() {
-    // when server is up:
-    //  Axios request for the user's boards
+    this.initUser();
+    console.log("component mounted");
+  }
+
+  initUser() {
     Axios.get("/profile")
       .then(response => {
-        console.log(response.data);
-        // initialize user here
         this.props.initializeUser(response.data);
-        Axios.get(`/api/boards/${this.props.user_id}`)
-          .then(response => {
-            this.setState({ boardsData: response.data });
-          })
-          .catch(err => console.log(err.message));
+        this.getBoards(this.props.user_id);
+      })
+      .catch(err => console.log(err.message));
+  }
+
+  getBoards(user_id) {
+    Axios.get(`/api/boards/${user_id}`)
+      .then(response => {
+        this.props.updateBoards(response.data);
+        this.setState({ boards: response.data });
       })
       .catch(err => console.log(err.message));
   }
 
   render() {
-    let { boardsData } = this.state;
-
-    let boards = boardsData.map((board, i) => {
-      return (
-        <Link
-          key={i}
-          to={{
-            pathname: `board/${board.board_id}`
-          }}
-          style={{ textDecoration: "none" }}
+    let boards = this.props.boards.map(board =>
+      <Link
+        key={board.board_id}
+        to={{
+          pathname: `board/${board.board_id}`
+        }}
+        style={{ textDecoration: "none" }}
+      >
+        <div
+          className="board-preview"
+          style={{ backgroundColor: board.color }}
         >
-          <div
-            className="board-preview"
-            style={{ backgroundColor: board.color }}
-          >
-            <h3>{board.board_name}</h3>
-          </div>
-        </Link>
-      );
-    });
+          <h3>{board.board_name}</h3>
+        </div>
+      </Link>
+    );
 
     return (
       <div className="home">
@@ -71,16 +81,10 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-  let { user_id, username, firstname, lastname } = state;
   return {
-    user_id,
-    username,
-    firstname,
-    lastname
+    user_id: state.user_id,
+    boards: state.boards
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { initializeUser }
-)(Home);
+export default connect(mapStateToProps, { initializeUser, updateBoards })(Home);

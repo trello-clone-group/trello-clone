@@ -53,7 +53,7 @@ passport.use(
       callbackURL: "/login",
       scope: "openid email profile"
     },
-    function(accessToken, refreshToken, extraParams, profile, done) {
+    function (accessToken, refreshToken, extraParams, profile, done) {
       // accessToken is the token to call Auth0 API (not needed in the most cases)
       // extraParams.id_token has the JSON Web Token
       // profile has all the information from the user
@@ -75,8 +75,7 @@ passport.use(
   )
 );
 
-passport.serializeUser(function(profile, done) {
-  console.log(profile);
+passport.serializeUser(function (profile, done) {
   let user = {
     username: profile._json.email,
     first_name: profile._json.given_name,
@@ -85,7 +84,7 @@ passport.serializeUser(function(profile, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(obj, done) {
+passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
@@ -119,7 +118,6 @@ app.get("/profile", (req, res, next) => {
       } else {
         // Set session.user_id to the user_id from the db
         req.session.user_id = user[0].id;
-        //console.log(req.session.user_id);
         res.status(200).send(user[0]);
       }
     })
