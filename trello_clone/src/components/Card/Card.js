@@ -19,6 +19,20 @@ class Card extends Component {
     }
   }
 
+  componentDidMount(){
+    let { cardsData, cardId } = this.props;
+    let cardData = cardsData.find(card => card.card_id === cardId);
+    this.setState({ cardData: cardData });
+  }
+
+  displayModal(){
+    let { cardData } = this.state;
+    let listData = this.props.lists.find(list => list.list_id === cardData.list_id);
+    cardData.list_title = listData.list_name;
+    this.props.changeModalData( cardData );
+    this.props.changeDisplayModal( true );
+  }
+
   componentDidMount() {
     let { cardsData, cardId } = this.props;
     let cardData = cardsData.find(card => card.card_id === cardId);
@@ -36,9 +50,7 @@ class Card extends Component {
 
   render() {
     let { card_title } = this.state.cardData;
-
     return (
-
       <div onClick={() => this.displayModal()} className='cardWrapper'>
         <div className='cardBody'>
           {card_title}

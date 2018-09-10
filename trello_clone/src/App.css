@@ -17,3 +17,33 @@ input {
     padding-left: 5px;
     margin-right: 10px;
 }
+
+.btn-save {
+    background-color: rgb(41, 245, 41);
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0px 2px 2px gray;
+    border: 0px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 2px;
+    padding: 7px;
+}
+.btn-save:hover {
+    background-color: rgb(11, 209, 11);
+}
+
+.btn-delete {
+    background-color: rgb(235, 92, 92);
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0px 2px 2px gray;
+    border: 0px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 2px;
+    padding: 7px;
+}
+.btn-delete:hover {
+    background-color: rgb(225, 28, 28);
+}
