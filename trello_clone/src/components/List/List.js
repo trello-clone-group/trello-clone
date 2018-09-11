@@ -3,7 +3,7 @@ import Axios from 'axios';
 import Card from '../Card/Card';
 import './List.css';
 import { connect } from 'react-redux';
-import { changeDisplayModal, changeModalData, updateLists, updateCards } from '../../ducks/reducer';
+import { changeDisplayModal, changeModalData, updateLists, updateCards, dropList } from '../../ducks/reducer';
 import { CancelIcon, SettingsIcon } from '../Icons/Icons';
 
 class List extends Component {
@@ -89,6 +89,7 @@ class List extends Component {
                 this.setState({ displayDelete: false });
             })
             .catch(err => console.log(err.message));
+            this.props.dropList(list_id)
     }
 
     render(){
@@ -164,4 +165,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, { changeDisplayModal, changeModalData, updateCards, updateLists })(List);
+export default connect(mapStateToProps, { changeDisplayModal, changeModalData, updateCards, updateLists, dropList })(List);
