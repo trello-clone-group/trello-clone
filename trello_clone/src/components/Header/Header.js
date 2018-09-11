@@ -21,7 +21,8 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      toggleNewBoardForm: false
+      toggleNewBoardForm: false,
+      newBoardId: null
     };
 
     this.toggleNewBoardForm = this.toggleNewBoardForm.bind(this);
@@ -40,8 +41,7 @@ class Header extends Component {
   saveNewBoard(board_name, user_id) {
     this.toggleNewBoardForm();
     Axios.post("/api/board/new", { board_name, user_id }).then(response => {
-      console.log(response);
-      this.props.history.push('/dashboard');
+      this.props.history.push(`/board/${response.data.board_id}`);
     });
   }
 

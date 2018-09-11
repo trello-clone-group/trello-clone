@@ -6,9 +6,10 @@ module.exports = {
     const { board_name, user_id } = req.body;
     //const user_id = req.session.user_id;
     const defaultBoardColor = "lightgray";
-    db.createBoard([board_name, user_id, defaultBoardColor])
-      .then(board => {
-        res.status(200).send(board);
+    db.createBoard([board_name, user_id, defaultBoardColor, user_id])
+      .then(board_id => {
+        console.log(board_id);
+        res.status(200).send(board_id[0]);
       })
       .catch(err => {
         res.status(500).send(err);
