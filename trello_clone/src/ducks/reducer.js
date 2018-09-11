@@ -42,7 +42,8 @@ const LOGOUT = "LOGOUT",
   GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS",
   UPDATE_BOARDS = "UPDATE_BOARDS",
   CREATE_BOARD = "CREATE_BOARD",
-  UPDATE_BOARD_NAME = "UPDATE_BOARD_NAME";
+  UPDATE_BOARD_NAME = "UPDATE_BOARD_NAME",
+  DROP_LIST = "DROP_LIST";
 
 export default function reducer(state = initialState, action) {
   console.log('reducer', action);
@@ -62,6 +63,11 @@ export default function reducer(state = initialState, action) {
       return { ...state, ...payload };
     case UPDATE_LISTS:
       return { ...state, lists: payload };
+    case DROP_LIST:
+      let currentLists = [...state.lists]
+      currentLists.splice(currentLists.findIndex(list => list.list_id === payload), 1)
+      return {...state, lists: currentLists}
+      
     case UPDATE_LIST_ORDER:
       let { oldIndex, newIndex } = payload;
       let newLists = [...state.lists];
@@ -117,6 +123,12 @@ export function getCards(board_id) {
         console.log("Failure: ", error);
       });
   };
+}
+export function dropList(id){
+  return {
+    type: DROP_LIST,
+    payload: id
+  }
 }
 
 export function updateBoardId(id) {
