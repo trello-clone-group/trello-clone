@@ -43,7 +43,7 @@ class Board extends Component {
 
     getLists(){
         let { id } = this.props.match.params;
-        Axios.get(`/api/lists/byBoard/${id}`)
+        Axios.get(`/api/listsByBoard/${id}`)
             .then( response => {
                 this.props.updateLists( response.data );
             })
@@ -85,13 +85,22 @@ class Board extends Component {
     }
 
     render(){
+        if( this.props.listsThunk.isFetching === true){
+            return (<div>
+             <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div> loading </div>
+            </div>)
+        } else {
         let { board_name, lists } = this.props;
         let { color, addNewList, editingBoardName } = this.state;
 
-        let listComponents = lists.map((list, i) => {
+        let listComponents = this.props.listsThunk.data.map((list, i) => {
             return <List key={i} listId={list.list_id} />
         })
-        
+      
         return(
              
             <div className='boardBackground' style={{backgroundColor: color}}>
@@ -130,17 +139,19 @@ class Board extends Component {
                     
             </div>
         )
+      }
     }
 }
 
 function mapStateToProps(state){
-    let { board_id, board_name, user_id, cards, lists } = state;
+    let { board_id, board_name, user_id, cards, lists, listsThunk } = state;
     return {
         board_id,
         board_name,
         cards,
         lists,
-        user_id
+        user_id,
+        listsThunk
     }
 }
 

@@ -136,7 +136,7 @@ app.delete("/api/board/:id", boardController.deleteBoard);
 
 /// List Endpoints ///
 app.get('/api/lists', listController.readLists);
-app.get('/api/lists/byBoard/:boardID', listController.readListsByBoardID);
+app.get('/api/listsByBoard/:boardID', listController.readListsByBoardID);
 app.post('/api/lists', listController.createList);
 app.delete('/api/lists/:id', listController.deleteList);
 app.put('/api/lists/:listID', listController.editList);

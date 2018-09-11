@@ -81,14 +81,14 @@ class List extends Component {
             })
             .catch(err => console.log(err.message));
     }
-
+      
     render(){
         let { cardsData } = this.props;
-        let { listData, editingListTitle, displayDelete } = this.state;
-        let { list_name } = listData;
+        let { editingListTitle, displayDelete } = this.state;
+        let { list_name } = this.props.listsThunk.data;
 
-        let cardComponents = cardsData
-            .filter(card => card.list_id === listData.list_id)
+        let cardComponents = this.props.cards.data
+            .filter(card => card.list_id === this.props.listsThunk.list_id)
             .map((card, i) => <Card key={i} cardId={card.card_id}/>);
         
         return(
@@ -132,11 +132,13 @@ class List extends Component {
 }
 
 function mapStateToProps(state){
-    let { displayModal, cardsData, lists } = state;
+    let { displayModal, cardsData, lists, listsThunk, cards } = state;
     return {
         displayModal,
         cardsData,
-        lists
+        lists,
+        listsThunk,
+        cards
     }
 }
 

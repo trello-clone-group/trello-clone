@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { connect } from 'react-redux';
-import { initializeUser } from '../../ducks/reducer';
+import { initializeUser, getCards, getLists } from '../../ducks/reducer';
 import './Home.css';
 import { PersonIcon } from '../Icons/Icons';
 
@@ -36,15 +36,22 @@ class Home extends Component {
 
   }
 
-  render() {
+   handleLinkClick = (id) => {
+  
+    this.props.getLists(id)
+    this.props.getCards(id)
+   }
 
+  render() {
     let { boardsData } = this.state;
+    //console.log('This is the board id')
+  
 
     let boards = boardsData.map( (board, i) => {
       return (
         <Link key={i} to={{
           pathname: `board/${board.board_id}`,
-          }} style={{textDecoration: 'none'}} >
+          }} style={{textDecoration: 'none'}} onClick = {() => this.handleLinkClick(board.board_id)} >
           <div className="board-preview" style={{backgroundColor: board.color}}>
             <h3>{board.board_name}</h3>
           </div>
@@ -72,13 +79,17 @@ class Home extends Component {
 }
 
 function mapStateToProps(state){
-  let { user_id, username, firstname, lastname } = state;
+  let { user_id, username, firstname, lastname, cards, lists, listsThunk, board_id } = state;
   return {
     user_id,
     username,
     firstname,
-    lastname
+    lastname,
+    cards,
+    lists,
+    listsThunk,
+    board_id
   }
 }
 
-export default connect(mapStateToProps, { initializeUser })(Home);
+export default connect(mapStateToProps, { initializeUser, getCards, getLists })(Home);

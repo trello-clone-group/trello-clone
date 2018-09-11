@@ -9,7 +9,12 @@ let initialState = {
   board_id: null,
   board_name: '',
   color: '',
-  lists: [],
+  lists:[],
+  listsThunk: {
+    isFetching: true,
+    error: null,
+    data: []
+  },
   cards: {
     isFetching: true,
     error: null,
@@ -22,7 +27,7 @@ let initialState = {
     card_title: "",
     description: "",
     list_id: null,
-    list_title
+    list_title: ''
   }
 };
 
@@ -40,6 +45,9 @@ const LOGOUT = "LOGOUT",
       GET_CARDS_REQUEST = "GET_CARDS_REQUEST",
       GET_CARDS_FAILURE = "GET_CARDS_FAILURE",
       GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS",
+      GET_LISTS_REQUEST = "GET_LISTS_REQUEST",
+      GET_LISTS_FAILURE = "GET_LISTS_FAILURE",
+      GET_LISTS_SUCCESS = "GET_LISTS_SUCCESS",
       UPDATE_BOARD_NAME = "UPDATE_BOARD_NAME";
 
 
@@ -76,11 +84,16 @@ export default function reducer(state = initialState, action) {
       card.list_id = listId;
       newCards.splice(newI, 0, card);
       return { ...state, cards: newCards };
+    case GET_LISTS_REQUEST:
+         case GET_LISTS_FAILURE:
+              return {...state, listsThunk: {isFetching: action.isFetching, error: action.error}}
+         case GET_LISTS_SUCCESS:
+              return {...state, listsThunk: {isFetching: action.isFetching, error: action.error, data: action.payload}}
     case GET_CARDS_REQUEST:
          case GET_CARDS_FAILURE:
               return {...state, cards: {isFetching: action.isFetching, error: action.error }}
          case GET_CARDS_SUCCESS:
-              return {...state, cards: {isFetching: action.isFetching, error: action.error, }}
+              return {...state, cards: {isFetching: action.isFetching, error: action.error, data: action.payload }}
     case UPDATE_BOARD_NAME:
       return { ...state, board_name: payload }
     default:
@@ -91,10 +104,12 @@ export default function reducer(state = initialState, action) {
 
 export function getCards(board_id) {
   return function(dispatch){
+   // console.log('getCards fired', board_id)
     dispatch({type: GET_CARDS_REQUEST, isFetching: true, error: null})
     axios.get(`http://localhost:3005/api/cardbyboard/${board_id}`)
     .then(res => {
       dispatch({type: GET_CARDS_SUCCESS, isFetching: false, payload: res.data})
+      
     })
     .catch(error => {
       dispatch({type: GET_CARDS_FAILURE, isFetching: false, error: error})
@@ -102,6 +117,23 @@ export function getCards(board_id) {
     })
   }
 }
+
+export function getLists(board_id) {
+  return function(dispatch){
+   // console.log('getListsFired', board_id)
+    dispatch({type: GET_LISTS_REQUEST, isFetching: true, error: null})
+    axios.get(`http://localhost:3005/api/listsByBoard/${board_id}`)
+    .then(res => {
+      dispatch({type: GET_LISTS_SUCCESS, isFetching: false, payload: res.data})
+      
+    })
+    .catch(error => {
+      dispatch({type: GET_LISTS_FAILURE, isFetching: false, error: error})
+      console.log("Failure: ", error)
+    })
+  }
+}
+
 
 export function updateBoardId(id){ // untested
   return {
