@@ -45,10 +45,8 @@ class Modal extends Component {
   save(key){
     let { modalData, board_id } = this.props;
     let { card_id, card_title, description, list_id } = modalData;
-    this.props.updateCard();
-    console.log(this.props.displayModal);
     Axios.put(`/api/card/${card_id}`, { card_title, description, list_id, board_id })
-      .then( response => console.log(response.data) )
+      .then( response => this.props.updateCards(response.data) )
       .catch( err => console.log( err.message ) );
 
     let obj = {};

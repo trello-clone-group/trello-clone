@@ -6,18 +6,6 @@ import { changeDisplayModal, changeModalData } from '../../ducks/reducer';
 import './Card.css';
 
 class Card extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      cardData: {
-        card_id: null,
-        card_title: '',
-        description: '',
-        list_id: null
-      }
-    }
-  }
 
   componentDidMount(){
     let { cardsData, cardId } = this.props;
@@ -25,41 +13,24 @@ class Card extends Component {
     this.setState({ cardData: cardData });
   }
 
-  // componentDidUpdate(prevProps){
-  //   if (prevProps === this.props){
-  //     return;
-  //   } else {
-  //     let card = this.props.cardsData.find(card => card.card_id === this.props.card_id)
-  //     this.setState({ cardData: this.props.cardId })
-  //   }
-  // }
+  getCardData() {
+    let { cardsData, cardId } = this.props;
+    let card = cardsData.find(card => {
+      return card.card_id === cardId;
+    } );
+    return card;
+  }
 
   displayModal(){
-    let { cardData } = this.state;
+    let cardData = this.getCardData();
     let listData = this.props.lists.find(list => list.list_id === cardData.list_id);
     cardData.list_title = listData.list_name;
     this.props.changeModalData( cardData );
     this.props.changeDisplayModal( true );
   }
 
-  componentDidMount() {
-    let { cardsData, cardId } = this.props;
-    let cardData = cardsData.find(card => card.card_id === cardId);
-    this.setState({ cardData: cardData });
-  }
-
-  displayModal() {
-    let { cardData } = this.state;
-    let listData = this.props.lists.find(list => list.list_id === cardData.list_id);
-    console.log(listData.list_name);
-    cardData.list_title = listData.list_name;
-    this.props.changeModalData(cardData);
-    this.props.changeDisplayModal(true);
-  }
-
   render() {
-    let { cardsData, cardId } = this.props;
-    let cardData = cardsData.find(card => card.card_id === cardId);
+    let cardData = this.getCardData();
     let { card_title } = cardData;
 
     return (
