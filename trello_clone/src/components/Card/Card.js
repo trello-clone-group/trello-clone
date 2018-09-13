@@ -25,6 +25,15 @@ class Card extends Component {
     this.setState({ cardData: cardData });
   }
 
+  // componentDidUpdate(prevProps){
+  //   if (prevProps === this.props){
+  //     return;
+  //   } else {
+  //     let card = this.props.cardsData.find(card => card.card_id === this.props.card_id)
+  //     this.setState({ cardData: this.props.cardId })
+  //   }
+  // }
+
   displayModal(){
     let { cardData } = this.state;
     let listData = this.props.lists.find(list => list.list_id === cardData.list_id);
@@ -49,7 +58,10 @@ class Card extends Component {
   }
 
   render() {
-    let { card_title } = this.state.cardData;
+    let { cardsData, cardId } = this.props;
+    let cardData = cardsData.find(card => card.card_id === cardId);
+    let { card_title } = cardData;
+
     return (
       <div onClick={() => this.displayModal()} className='cardWrapper'>
         <div className='cardBody'>
@@ -63,9 +75,9 @@ class Card extends Component {
 function mapStateToProps(state) {
   let { displayModal, cardsData, lists } = state;
   return {
-    displayModal,
     cardsData,
-    lists
+    lists,
+    displayModal
   };
 }
 

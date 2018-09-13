@@ -3,7 +3,7 @@ import Axios from 'axios';
 import './Modal.css';
 import { TitleIcon, DescrIcon, CancelIcon } from '../Icons/Icons';
 import { connect } from 'react-redux';
-import { changeDisplayModal, changeModalData, updateCards } from '../../ducks/reducer';
+import { changeDisplayModal, changeModalData, updateCards, updateCard } from '../../ducks/reducer';
 
 class Modal extends Component {
   constructor(props){
@@ -43,11 +43,12 @@ class Modal extends Component {
   }
 
   save(key){
-    let { card_id, card_title, description, list_id } = this.props.modalData;
-    Axios.put(`/api/card/${card_id}`, { card_title, description, list_id })
-      .then( response => {
-        console.log(response.data);
-      } )
+    let { modalData, board_id } = this.props;
+    let { card_id, card_title, description, list_id } = modalData;
+    this.props.updateCard();
+    console.log(this.props.displayModal);
+    Axios.put(`/api/card/${card_id}`, { card_title, description, list_id, board_id })
+      .then( response => console.log(response.data) )
       .catch( err => console.log( err.message ) );
 
     let obj = {};
@@ -82,6 +83,13 @@ class Modal extends Component {
   close() {
     this.props.changeDisplayModal(false);
     this.setState({ editTitle: true });
+    this.props.changeModalData({
+      card_id: null,
+      card_title: "",
+      description: "",
+      list_id: null,
+      list_title: ""
+    });
   }
 
   render(){
@@ -167,12 +175,13 @@ class Modal extends Component {
 }
 
 function mapStateToProps(state){
-  let { displayModal, modalData, board_id } = state;
+  let { displayModal, modalData, board_id, cardsData } = state;
   return {
     displayModal,
     modalData,
-    board_id
+    board_id,
+    cardsData
   }
 }
 
-export default connect(mapStateToProps, { changeDisplayModal, changeModalData, updateCards })(Modal);
+export default connect(mapStateToProps, { changeDisplayModal, changeModalData, updateCards, updateCard })(Modal);

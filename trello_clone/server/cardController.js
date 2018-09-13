@@ -46,12 +46,12 @@ module.exports = {
       .catch( err => console.log(err.message));
   },
   
-  // PUT "/api/card/:id" -  edits card w/ given id and sends back cards from same list
+  // PUT "/api/card/:id" -  edits card w/ given id and sends back cards from same board
   editCard: (req, res, next) => {
     const db = req.app.get('db');
-    let { card_title, description, list_id } = req.body;
+    let { card_title, description, list_id, board_id } = req.body;
     let { id } = req.params;
-    db.edit_card([id, card_title, description, list_id])
+    db.edit_card([id, card_title, description, list_id, board_id])
       .then( cards => res.status(200).send(cards) )
       .catch( err => console.log(err.message));
   },
