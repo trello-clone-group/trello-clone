@@ -134,9 +134,11 @@ class Board extends Component {
               :
               <div className="new-list-modal">
                 <input onChange={e => this.setState({ newListTitle: e.target.value })} type="text" placeholder="list title" />
-                <button className="btn-save" onClick={() => this.addList(this.state.newListTitle)} >Add List</button>
-                <div onClick={() => { this.cancelNewList() }}>
-                  <CancelIcon />
+                <div className="btn-box">
+                  <button className="btn-save" onClick={() => this.addList(this.state.newListTitle)} >Add List</button>
+                  <div onClick={() => {this.cancelNewList()}}>
+                      <CancelIcon />
+                  </div>
                 </div>
               </div>
           }
@@ -147,13 +149,14 @@ class Board extends Component {
 }
 
 function mapStateToProps(state) {
-  let { board_id, board_name, user_id, cards, lists } = state;
+  let { board_id, board_name, user_id, cardsData, lists, displayModal } = state;
   return {
     board_id,
     board_name,
-    cards,
+    cardsData,
     lists,
-    user_id
+    user_id,
+    displayModal
   }
 }
 

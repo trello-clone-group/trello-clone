@@ -36,6 +36,7 @@ const LOGOUT = "LOGOUT",
   UPDATE_LISTS = "UPDATE_LISTS",
   UPDATE_LIST_ORDER = "UPDATE_LIST_ORDER",
   UPDATE_CARDS = "UPDATE_CARDS",
+  UPDATE_CARD = "UPDATE_CARD", // to make
   UPDATE_CARD_ORDER = "UPDATE_CARD_ORDER",
   GET_CARDS_REQUEST = "GET_CARDS_REQUEST",
   GET_CARDS_FAILURE = "GET_CARDS_FAILURE",
@@ -50,7 +51,7 @@ export default function reducer(state = initialState, action) {
   let { type, payload } = action;
   switch (type) {
     case UPDATE_BOARD_ID:
-      return { ...state, board_id: payload }; // untested
+      return { ...state, board_id: payload };
     case CHANGE_DISPLAY_MODAL:
       return Object.assign({}, state, { displayModal: action.payload });
     case CHANGE_MODAL_DATA:
@@ -83,6 +84,12 @@ export default function reducer(state = initialState, action) {
       card.list_id = listId;
       newCards.splice(newI, 0, card);
       return { ...state, cards: newCards };
+    case UPDATE_CARD:
+      let updatedCards = [...state.cardsData];
+      let index = updatedCards.findIndex(card => card.card_id === state.modalData.card_id);
+      updatedCards[index] = {...state.modalData};
+      console.log(updatedCards === state.cardsData);
+      return { ...state, cardsData: updatedCards };
     case GET_CARDS_REQUEST:
     case GET_CARDS_FAILURE:
       return {
@@ -132,7 +139,6 @@ export function dropList(id){
 }
 
 export function updateBoardId(id) {
-  // untested
   return {
     type: UPDATE_BOARD_ID,
     payload: id
@@ -191,6 +197,13 @@ export function updateCards(cards) {
   return {
     type: UPDATE_CARDS,
     payload: cards
+  };
+}
+
+export function updateCard(data){
+  return {
+    type: UPDATE_CARD,
+    payload: data
   };
 }
 
