@@ -72,3 +72,16 @@
     width: 97%;
     height: 24px;
 }
+
+.board-delete-button {
+  background: #dc3545;
+  border-radius: 3px;
+  margin: 0 5px;
+  padding: 10px;
+  border: none;
+  color: #fff;
+}
+
+.board-delete-button:hover {
+  filter: brightness(85%); 
+}

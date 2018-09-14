@@ -93,10 +93,10 @@ class Board extends Component {
       .catch(err => console.log(err.message));
   }
 
-  cancelNewList(){
+  cancelNewList() {
     this.setState({ addNewList: false });
   }
-  
+
   render() {
     let { board_name, lists } = this.props;
     let { color, addNewList, editingBoardName } = this.state;
@@ -121,7 +121,7 @@ class Board extends Component {
                 </div>
               </div>
           }
-          <button onClick={() => this.deleteBoard()}>Delete Board</button>
+          <button className="board-delete-button" onClick={() => this.deleteBoard()}>Delete Board</button>
         </div>
         <div className='listsContainer'>
           {listComponents}
