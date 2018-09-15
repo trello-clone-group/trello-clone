@@ -92,19 +92,14 @@ class List extends Component {
             this.props.dropList(list_id)
     }
 
-    createCardComponents(cards){
-        return cards
-            .filter(card => card.list_id === listData.list_id)
-            .map((card, i) => <Card key={i} cardId={card.card_id}/>);
-    }
-
     render(){
         let { cardsData } = this.props;
         let { listData, editingListTitle, displayDelete, addNewCard, newCardName } = this.state;
         let { list_name } = listData;
 
-        let cardComponents = this.createCardComponents(cardsData);
-        
+        let cardComponents = cardsData
+            .filter(card => card.list_id === listData.list_id)
+            .map((card, i) => <Card key={i} cardId={card.card_id}/>);
         return(
            
               <div className = 'listBody'>
