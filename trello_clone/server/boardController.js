@@ -5,7 +5,7 @@ module.exports = {
     const db = req.app.get("db");
     const { board_name, user_id } = req.body;
     //const user_id = req.session.user_id;
-    const defaultBoardColor = "lightgray";
+    const defaultBoardColor = "dodgerblue"; // "lightgray";
     db.createBoard([board_name, user_id, defaultBoardColor, user_id])
       .then(board_id => {
         console.log(board_id);
