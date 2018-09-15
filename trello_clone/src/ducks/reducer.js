@@ -26,25 +26,25 @@ const initialState = {
     list_title: ""
   }
 };
-
-const LOGOUT = "LOGOUT",
-  CHANGE_BOARD_COLOR = "CHANGE_BOARD_COLOR",
-  UPDATE_BOARD_ID = "UPDATE_BOARD_ID",
-  CHANGE_DISPLAY_MODAL = "CHANGE_DISPLAY_MODAL",
-  CHANGE_MODAL_DATA = "CHANGE_MODAL_DATA",
-  INITIALIZE_USER = "INITIALIZE_USER",
-  UPDATE_LISTS = "UPDATE_LISTS",
-  UPDATE_LIST_ORDER = "UPDATE_LIST_ORDER",
-  UPDATE_CARDS = "UPDATE_CARDS",
-  UPDATE_CARD = "UPDATE_CARD", // to make
-  UPDATE_CARD_ORDER = "UPDATE_CARD_ORDER",
-  GET_CARDS_REQUEST = "GET_CARDS_REQUEST",
-  GET_CARDS_FAILURE = "GET_CARDS_FAILURE",
-  GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS",
-  UPDATE_BOARDS = "UPDATE_BOARDS",
-  CREATE_BOARD = "CREATE_BOARD",
-  UPDATE_BOARD_NAME = "UPDATE_BOARD_NAME",
-  DROP_LIST = "DROP_LIST";
+                                                  // test created?
+const LOGOUT = "LOGOUT",                          // [x]
+  CHANGE_BOARD_COLOR = "CHANGE_BOARD_COLOR",      // [x]
+  UPDATE_BOARD_ID = "UPDATE_BOARD_ID",            // [x]
+  CHANGE_DISPLAY_MODAL = "CHANGE_DISPLAY_MODAL",  // [x]
+  CHANGE_MODAL_DATA = "CHANGE_MODAL_DATA",        // [x]
+  INITIALIZE_USER = "INITIALIZE_USER",            // [x]
+  UPDATE_LISTS = "UPDATE_LISTS",                  // [x]
+  UPDATE_LIST_ORDER = "UPDATE_LIST_ORDER",        // [x]
+  UPDATE_CARDS = "UPDATE_CARDS",                  // [x]
+  UPDATE_CARD = "UPDATE_CARD",                    // [-]
+  UPDATE_CARD_ORDER = "UPDATE_CARD_ORDER",        // [x]
+  GET_CARDS_REQUEST = "GET_CARDS_REQUEST",        // [-]
+  GET_CARDS_FAILURE = "GET_CARDS_FAILURE",        // [-]
+  GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS",        // [-]
+  UPDATE_BOARDS = "UPDATE_BOARDS",                // [x]
+  CREATE_BOARD = "CREATE_BOARD",                  // [x]
+  UPDATE_BOARD_NAME = "UPDATE_BOARD_NAME",        // [x]
+  DROP_LIST = "DROP_LIST";                        // [x]
 
 export default function reducer(state = initialState, action) {
   console.log('reducer', action);
