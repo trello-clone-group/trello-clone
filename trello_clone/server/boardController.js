@@ -9,7 +9,7 @@ module.exports = {
     db.createBoard([board_name, user_id, defaultBoardColor, user_id])
       .then(board_id => {
         console.log(board_id);
-        res.status(200).send(board_id[0]);
+        res.status(201).send(board_id[0]);
       })
       .catch(err => {
         res.status(500).send(err);
@@ -41,7 +41,6 @@ module.exports = {
     console.log(`Updating board ${req.params.id}...`);
     const db = req.app.get("db");
     const { board_name } = req.body;
-    //console.log(board_name);
     db.updateBoard([board_name, req.params.id])
       .then(board => {
         res.status(200).send(board);
@@ -56,7 +55,7 @@ module.exports = {
 
     db.deleteBoard([req.params.id])
       .then(board => {
-        res.status(200).send(board);
+        res.status(202).send(board);
       })
       .catch(err => {
         console.log(err);
