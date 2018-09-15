@@ -15,15 +15,15 @@ module.exports = {
         const{list_name, board_id} = req.body
         console.log(list_name, board_id)
         dbInstance.insertList([list_name, board_id])
-        .then(() => res.status(200)
-        .send()).catch(()=> res.status(500).send())
+        .then(lists => {res.status(200)
+        .send(lists)}).catch((err)=> res.status(500).send(err)) //changed this so it sends lists back
     },
 
     deleteList: (req, res, next) => {
         const dbInstance = req.app.get('db')
 
         dbInstance.removeList([req.params.id])
-        .then(() => res.status(200).send())
+        .then((lists) => res.status(200).send(lists))
         .catch(() => res.status(500).send())
     },
 
