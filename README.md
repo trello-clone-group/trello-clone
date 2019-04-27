@@ -7,20 +7,20 @@
   - Dalton Bagley
   - Jared Tanner
 
-### Screenshots:
-Landing page:
-![landing page][landing]
+Simple clone of the popular project management tool, Trello.com
 
-Dashboard:
-![dashboard][dashboard]
+<div align="center">
+  <img src="https://raw.githubusercontent.com/trello-clone-group/trello-clone/master/trello-landing-page.PNG" alt="landing page" />
+</div>
+    
+<div align="center">
+  <img src="https://raw.githubusercontent.com/trello-clone-group/trello-clone/master/trello-dashboard.PNG" alt="dashboard" />
+</div>
+    
+<div align="center">
+  <img src="https://raw.githubusercontent.com/trello-clone-group/trello-clone/master/trello-board-view.PNG" alt="board view" />
+</div>
 
-Board View:
-![board view][board]
-
-Card Modal:
-![card modal][modal]
-
-[landing]: https://raw.githubusercontent.com/trello-clone-group/trello-clone/master/trello-landing-page.PNG "landing page"
-[dashboard]: https://raw.githubusercontent.com/trello-clone-group/trello-clone/master/trello-dashboard.PNG "dashboard"
-[board]: https://raw.githubusercontent.com/trello-clone-group/trello-clone/master/trello-board-view.PNG "board view"
-[modal]: https://raw.githubusercontent.com/trello-clone-group/trello-clone/master/trello-modal-view.PNG "card modal"
+<div align="center">
+  <img src="https://raw.githubusercontent.com/trello-clone-group/trello-clone/master/trello-modal-view.PNG" alt="card modal" />
+</div>
