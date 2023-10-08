@@ -24,3 +24,12 @@ Simple clone of the popular project management tool, Trello.com
 <div align="center">
   <img src="https://raw.githubusercontent.com/trello-clone-group/trello-clone/master/trello-modal-view.PNG" alt="card modal" />
 </div>
+
+<style>
+  img {
+    margin: 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px 0px lightgray;
+  }
+</style>
